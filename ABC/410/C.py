@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n, q = [int(i) for i in input().split()]
 	a = [i for i in range(1, n + 1)]

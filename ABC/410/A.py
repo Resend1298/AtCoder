@@ -1,16 +1,9 @@
-# TODO: review
-
 def main():
-	n = int(input())
+	_ = int(input())
 	a = [int(i) for i in input().split()]
 	k = int(input())
 
-	result = 0
-	for i in a:
-		if k <= i:
-			result += 1
-
-	print(result)
+	print([k <= i for i in a].count(True))
 
 
 if __name__ == "__main__":

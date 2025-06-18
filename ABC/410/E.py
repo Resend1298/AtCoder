@@ -1,34 +1,31 @@
-# TODO: review
-
 def main():
 	n, h, m = [int(i) for i in input().split()]
 	ab = [[int(i) for i in input().split()] for _ in range(n)]
 
-	current = {h: m}
+	current_status = {h: m}
 
-	for i in range(n + 1):
-		if i == n:
-			print(n)
-			exit()
+	for i in range(n):
+		new_status = {}
 
-		new = {}
-		for j, k in current.items():
+		for j, k in current_status.items():
 			if j >= ab[i][0]:
-				if j - ab[i][0] in new:
-					new[j - ab[i][0]] = max(new[j - ab[i][0]], k)
+				if j - ab[i][0] in new_status:
+					new_status[j - ab[i][0]] = max(new_status[j - ab[i][0]], k)
 				else:
-					new[j - ab[i][0]] = k
+					new_status[j - ab[i][0]] = k
 			if k >= ab[i][1]:
-				if j in new:
-					new[j] = max(new[j], k - ab[i][1])
+				if j in new_status:
+					new_status[j] = max(new_status[j], k - ab[i][1])
 				else:
-					new[j] = k - ab[i][1]
+					new_status[j] = k - ab[i][1]
 
-		if not new:
+		if new_status:
+			current_status = new_status
+		else:
 			print(i)
 			exit()
 
-		current = new
+	print(n)
 
 
 if __name__ == "__main__":

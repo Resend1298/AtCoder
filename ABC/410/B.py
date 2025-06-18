@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, q = [int(i) for i in input().split()]
 	x = [int(i) for i in input().split()]
@@ -9,17 +7,12 @@ def main():
 
 	for i in x:
 		if i >= 1:
-			result.append(i)
 			count[i - 1] += 1
+			result.append(i)
 		else:
-			min_count = float("inf")
-			min_index = 0
-			for j in range(n):
-				if count[j] < min_count:
-					min_count = count[j]
-					min_index = j
-			result.append(min_index + 1)
-			count[min_index] += 1
+			tmp = count.index(min(count))
+			count[tmp] += 1
+			result.append(tmp + 1)
 
 	print(*result)
 

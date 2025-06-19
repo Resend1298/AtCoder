@@ -1,25 +1,32 @@
-# TODO: WA
+import sys
+
 
 def main():
+	sys.setrecursionlimit(10 ** 7)
+
 	n, m = [int(i) for i in input().split()]
-	edge = []
+	edge = [[] for _ in range(n)]
 	for _ in range(m):
 		a, b, w = [int(i) for i in input().split()]
-		edge.append((a - 1, b - 1, w))
+		edge[a - 1].append((b - 1, w))
 
-	d = [-1] * n
-	d[0] = 0
+	visited = [[False] * 1024 for _ in range(n)]
 
-	while True:
-		update = False
-		for x, y, z in edge:
-			if d[x] != -1 and (d[y] > d[x] ^ z or d[y] == -1):
-				d[y] = d[x] ^ z
-				update = True
-		if not update:
-			break
+	def dfs(i, j):
+		visited[i][j] = True
 
-	print(d[n - 1])
+		for k, l in edge[i]:
+			if not visited[k][j ^ l]:
+				dfs(k, j ^ l)
+
+	dfs(0, 0)
+
+	for i in range(1024):
+		if visited[n - 1][i]:
+			print(i)
+			exit()
+	else:
+		print(-1)
 
 
 if __name__ == "__main__":

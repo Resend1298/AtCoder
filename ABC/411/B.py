@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	d = [int(i) for i in input().split()]
@@ -9,10 +7,7 @@ def main():
 		location.append(location[-1] + i)
 
 	for i in range(n - 1):
-		tmp = []
-		for j in range(i + 1, n):
-			tmp.append(location[j] - location[i])
-		print(*tmp)
+		print(*[location[j] - location[i] for j in range(i + 1, n)])
 
 
 if __name__ == "__main__":

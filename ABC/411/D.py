@@ -1,30 +1,23 @@
-# TODO: TLE
-
 def main():
 	n, q = [int(i) for i in input().split()]
+	query = [input().split() for _ in range(q)][::-1]
 
-	current = [[] for _ in range(n + 1)]
-	cow = set()
+	result = []
+	searching_3 = True
 
-	for _ in range(q):
-		query = input().split()
-		query[0] = int(query[0])
-		query[1] = int(query[1])
+	for i in query:
+		if searching_3:
+			if i[0] == '3':
+				current_pc = i[1]
+				searching_3 = False
+		else:
+			# noinspection PyUnboundLocalVariable
+			if i[0] == '2' and i[1] == current_pc:
+				result.append(i[2])
+			elif i[0] == '1' and i[1] == current_pc:
+				searching_3 = True
 
-		match query[0]:
-			case 1:
-				current[query[1]] = current[0]
-				cow.add(id(current[0]))
-			case 2:
-				if id(current[query[1]]) in cow:
-					current[query[1]] = current[query[1]].copy()
-
-				current[query[1]].append(query[2])
-			case 3:
-				current[0] = current[query[1]]
-				cow.add(id(current[query[1]]))
-
-	print(''.join(current[0]))
+	print(''.join(result[::-1]))
 
 
 if __name__ == "__main__":

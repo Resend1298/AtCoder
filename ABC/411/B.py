@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n = int(input())
 	d = [int(i) for i in input().split()]

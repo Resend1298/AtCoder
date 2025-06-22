@@ -1,3 +1,5 @@
+# TODO: TLE
+
 def main():
 	n, q = [int(i) for i in input().split()]
 

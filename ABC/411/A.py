@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	p = input()
 	l = int(input())

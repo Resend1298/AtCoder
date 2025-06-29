@@ -1,8 +1,8 @@
-# TODO: review
-
 def main():
 	n = int(input())
+
 	result = 0
+
 	for _ in range(n):
 		a, b = [int(i) for i in input().split()]
 		if b > a:

@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n = int(input())
 	s = list(set([input() for _ in range(n)]))

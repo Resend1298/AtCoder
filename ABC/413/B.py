@@ -1,16 +1,14 @@
-# TODO: review
-
 def main():
 	n = int(input())
-	s = list(set([input() for _ in range(n)]))
+	s = [input() for _ in range(n)]
 
-	new = set()
-	for i in range(len(s)):
-		for j in range(len(s)):
+	result = set()
+	for i in s:
+		for j in s:
 			if i != j:
-				new.add(s[i] + s[j])
+				result.add(i + j)
 
-	print(len(new))
+	print(len(result))
 
 
 if __name__ == "__main__":

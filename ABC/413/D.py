@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	t = int(input())
 
@@ -11,44 +9,20 @@ def main():
 			print("Yes")
 			continue
 
-		if n == 3:
-			a.sort()
-			if a[1] ** 2 == a[0] * a[2]:
-				print("Yes")
-				continue
-			a.sort(key=lambda x: abs(x))
-			if a[1] ** 2 == a[0] * a[2]:
-				print("Yes")
-				continue
-
-			tmp = list(set(a))
-			if len(tmp) == 2 and tmp[0] == -tmp[1]:
-				print("Yes")
-				continue
-
-			print("No")
-			continue
-
+		# r == -1
 		tmp = list(set(a))
 		if len(tmp) == 2 and tmp[0] == -tmp[1] and abs(a.count(tmp[0]) - a.count(tmp[1])) <= 1:
 			print("Yes")
 			continue
 
-		a.sort()
-		for i in range(2, n):
-			if a[i - 1] ** 2 != a[i - 2] * a[i]:
-				break
-		else:
-			print("Yes")
-			continue
+		# r != -1
 		a.sort(key=lambda x: abs(x))
-		for i in range(2, n):
-			if a[i - 1] ** 2 != a[i - 2] * a[i]:
+		for i in range(1, n - 1):
+			if a[i] ** 2 != a[i - 1] * a[i + 1]:
 				print("No")
 				break
 		else:
 			print("Yes")
-			continue
 
 
 if __name__ == "__main__":

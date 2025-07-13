@@ -1,26 +1,22 @@
-# TODO: review
-
 from collections import deque
 
 
 def main():
-	n, m = [int(i) for i in input().split()]
-	x = [int(i) for i in input().split()]
+	_, m = [int(i) for i in input().split()]
+	x = list(set([int(i) for i in input().split()]))
+	n = len(x)
 
-	if n == m:
+	if m >= n:
 		print(0)
 		exit()
 	if m == 1:
 		print(max(x) - min(x))
 		exit()
 
-	x = list(set(x))
 	x.sort()
-	n = len(x)
-
 	diff = []
-	for i in range(n - 1):
-		diff.append(x[i + 1] - x[i])
+	for i in range(1, n):
+		diff.append(x[i] - x[i - 1])
 	diff.sort()
 	diff = deque(diff)
 
@@ -28,7 +24,6 @@ def main():
 	while n > m:
 		result += diff.popleft()
 		n -= 1
-
 	print(result)
 
 

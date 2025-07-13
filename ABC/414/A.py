@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, l, r = [int(i) for i in input().split()]
 	result = 0

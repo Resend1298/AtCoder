@@ -1,9 +1,6 @@
-# TODO: review
-
 def main():
 	n = int(input())
-	c = []
-	l = []
+	c, l = [], []
 	for _ in range(n):
 		cl = input().split()
 		c.append(cl[0])

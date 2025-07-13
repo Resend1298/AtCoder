@@ -1,4 +1,6 @@
-# Python3 Program for Checking double 
+# TODO: review
+
+# Python3 Program for Checking double
 # base Palindrome.
 
 # Function generates even and 

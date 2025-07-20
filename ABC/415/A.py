@@ -1,14 +1,9 @@
-# TODO: review
-
 def main():
-	n = int(input())
+	_ = int(input())
 	a = [int(i) for i in input().split()]
 	x = int(input())
 
-	if x in a:
-		print("Yes")
-	else:
-		print("No")
+	print("Yes" if x in a else "No")
 
 
 if __name__ == "__main__":

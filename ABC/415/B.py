@@ -1,18 +1,13 @@
-# TODO: review
-
-from collections import deque
-
-
 def main():
 	s = input()
 
-	location = deque()
+	location = []
 	for i in range(len(s)):
 		if s[i] == '#':
 			location.append(i)
 
-	while location:
-		print(f"{location.popleft() + 1},{location.popleft() + 1}")
+	for i in range(0, len(location) - 1, 2):
+		print(f"{location[i] + 1},{location[i + 1] + 1}")
 
 
 if __name__ == "__main__":

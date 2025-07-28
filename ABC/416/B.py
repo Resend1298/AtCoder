@@ -1,31 +1,17 @@
-# TODO: review
-
 def main():
 	s = input()
 
-	if s == '#' * len(s):
-		print(s)
-		exit()
-	if '#' not in s:
-		print('o' + '.' * (len(s) - 1))
-		exit()
+	t = list(s)
+	changeable = True
 
-	result = list(s)
-
-	o = False
 	for i in range(len(s)):
 		if s[i] == '#':
-			o = True
-		elif o and s[i] == '.':
-			result[i] = 'o'
-			o = False
+			changeable = True
+		elif s[i] == '.' and changeable:
+			t[i] = 'o'
+			changeable = False
 
-	first = s.index('#')
-	for i in range(first):
-		if result[i] == '.':
-			result[i] = 'o'
-			break
-	print(''.join(result))
+	print(''.join(t))
 
 
 if __name__ == "__main__":

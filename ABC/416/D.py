@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -8,19 +6,17 @@ def solve():
 	a = [int(i) for i in input().split()]
 	b = [int(i) for i in input().split()]
 
-	b.sort(reverse=True)
 	a = SortedList(a)
+	b.sort(reverse=True)
 	result = 0
 
 	for i in range(n):
 		target = a.bisect_left(m - b[i])
 		if target != len(a):
-			result += (b[i] + a[target]) % m
-			a.remove(a[target])
+			result += a[target] + b[i] - m
+			del a[target]
 		else:
-			for j in range(i, n):
-				result += b[j]
-			result += sum(a)
+			result += sum(a) + sum(b[i:])
 			break
 
 	print(result)

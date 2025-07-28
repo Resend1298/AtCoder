@@ -1,67 +1,49 @@
-# TODO: review
+# CPython TLE, PyPy AC
 
-# Python3 Program for Checking double
-# base Palindrome.
-
-# Function generates even and 
-# odd palindromes 
-def makePalindrome(n, odd):
-	res = n;
-	if (odd):
-		n = int(n / 10);
-	while (n > 0):
-		res = 10 * res + n % 10;
-		n = int(n / 10);
-	return res;
+def base_convert(n: int, base) -> str:
+	result = []
+	while n != 0:
+		result.append(str(n % base))
+		n //= base
+	result.reverse()
+	return ''.join(result)
 
 
-# Check if a number is palindrome
-# in base k 
-def isPalindrome(n, base):
-	reversed = 0;
-	temp = n;
-	while (temp > 0):
-		reversed = reversed * base + temp % base;
-		temp = int(temp / base);
-
-	return reversed == n;
+def palindromic_in_base(n: int, base) -> bool:
+	n_base = base_convert(n, base)
+	return n_base == n_base[::-1]
 
 
-# function to print sum of Palindromes
-def sumPalindrome(n, k):
-	sum = 0;
-	i = 1;
+def main():
+	a = int(input())
+	n = int(input())
 
-	p = makePalindrome(i, True);
+	result = 0
 
-	# loop for odd generation of
-	# odd palindromes
-	while (p < n):
-		if (isPalindrome(p, k)):
-			sum += p;
-		i += 1;
+	for i in range(1, min(n, 9) + 1):
+		if palindromic_in_base(i, a):
+			result += i
 
-		p = makePalindrome(i, True);
+	for number_of_digits in range(2, len(str(n)) + 1):
+		match number_of_digits % 2:
+			case 0:
+				for palindromic_part in range(10 ** (number_of_digits // 2 - 1), 10 ** (number_of_digits // 2)):
+					current = int(str(palindromic_part) + str(palindromic_part)[::-1])
+					if current > n:
+						break
+					if palindromic_in_base(current, a):
+						result += current
+			case 1:
+				for palindromic_part in range(10 ** (number_of_digits // 2 - 1), 10 ** (number_of_digits // 2)):
+					for middle_digit in range(10):
+						current = int(str(palindromic_part) + str(middle_digit) + str(palindromic_part)[::-1])
+						if current > n:
+							break
+						if palindromic_in_base(current, a):
+							result += current
 
-	i = 1;
-
-	# loop for generation of
-	# even palindromes
-	p = makePalindrome(i, False);
-	while (p < n):
-		if (isPalindrome(p, k)):
-			sum += p;
-		i += 1;
-		p = makePalindrome(i, False);
-
-	# result of all palindromes in
-	# both bases.
-	print(sum)
+	print(result)
 
 
-# Driver code
-a = int(input())
-n = int(input())
-sumPalindrome(n + 1, a)
-
-# This code is contributed by mits
+if __name__ == "__main__":
+	main()

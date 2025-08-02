@@ -1,7 +1,5 @@
-# TODO: review
-
 def main():
-	n, m = [int(i) for i in input().split()]
+	_, _ = [int(i) for i in input().split()]
 	a = [int(i) for i in input().split()]
 	b = [int(i) for i in input().split()]
 

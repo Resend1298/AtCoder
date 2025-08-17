@@ -1,23 +1,14 @@
-# TODO: review
-
 def main():
 	n = int(input())
-	min_x, min_y, max_x, max_y = float("inf"), float("inf"), float("-inf"), float("-inf")
-	rc = []
+	x, y = [], []
 	for _ in range(n):
 		r, c = [int(i) - 1 for i in input().split()]
-		rc.append((r, c))
-		min_x = min(min_x, r)
-		min_y = min(min_y, c)
-		max_x = max(max_x, r)
-		max_y = max(max_y, c)
+		x.append(r)
+		y.append(c)
 
-	center_x = (min_x + max_x) // 2
-	center_y = (min_y + max_y) // 2
-
-	result = float("-inf")
-	for r, c in rc:
-		result = max(result, max(abs(r - center_x), abs(c - center_y)))
+	center_x = (min(x) + max(x)) // 2
+	center_y = (min(y) + max(y)) // 2
+	result = max(abs(min(x) - center_x), abs(max(x) - center_x), abs(min(y) - center_y), abs(max(y) - center_y))
 
 	print(result)
 

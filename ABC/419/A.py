@@ -1,8 +1,5 @@
-# TODO: review
-
 def main():
 	s = input()
-
 	atcoder = {"red": "SSS", "blue": "FFF", "green": "MMM"}
 
 	if s in atcoder:

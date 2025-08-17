@@ -1,11 +1,11 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
 def main():
 	q = int(input())
+
 	bag = SortedList()
+
 	for _ in range(q):
 		query = [int(i) for i in input().split()]
 

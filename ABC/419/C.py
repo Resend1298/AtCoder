@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n = int(input())
 	min_x, min_y, max_x, max_y = float("inf"), float("inf"), float("-inf"), float("-inf")

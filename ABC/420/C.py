@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, q = [int(i) for i in input().split()]
 	a = [int(i) for i in input().split()]
@@ -11,19 +9,20 @@ def main():
 
 	for _ in range(q):
 		c, x, v = input().split()
-		x, v = int(x) - 1, int(v)
+		x = int(x) - 1
+		v = int(v)
+
+		current_sum -= min(a[x], b[x])
 
 		match c:
 			case 'A':
-				current_sum -= min(a[x], b[x])
 				a[x] = v
-				current_sum += min(a[x], b[x])
-				print(current_sum)
 			case 'B':
-				current_sum -= min(a[x], b[x])
 				b[x] = v
-				current_sum += min(a[x], b[x])
-				print(current_sum)
+
+		current_sum += min(a[x], b[x])
+
+		print(current_sum)
 
 
 if __name__ == "__main__":

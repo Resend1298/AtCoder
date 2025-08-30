@@ -1,70 +1,64 @@
-# TODO: review
-
 class UnionFind:
-	def __init__(self, size):
-		self.parent = list(range(size))
-		self.black_count = [0] * size
+	def __init__(self, n):
+		self._parent = [i for i in range(n)]
+		self._size = [1] * n
 
-	def find(self, i):
-		# If i itself is root or representative
-		if self.parent[i] == i:
-			return i
+		self._color = ["white"] * n
+		self._black_count = [0] * n
 
-		# Else recursively find the representative
-		# of the parent
-		return self.find(self.parent[i])
+	def find(self, x):
+		if self._parent[x] == x:
+			return x
 
-	def unite(self, i, j):
-		# Representative of set containing i
-		irep = self.find(i)
+		self._parent[x] = self.find(self._parent[x])
+		return self._parent[x]
 
-		# Representative of set containing j
-		jrep = self.find(j)
+	def union(self, x, y):
+		x = self.find(x)
+		y = self.find(y)
 
-		if irep != jrep:
-			self.parent[max(irep, jrep)] = min(irep, jrep)
-			self.black_count[min(irep, jrep)] += self.black_count[max(irep, jrep)]
+		if x == y:
+			return
 
-	def black(self, i):
-		irep = self.find(i)
-		self.black_count[irep] += 1
+		if self._size[x] < self._size[y]:
+			x, y = y, x
+		self._parent[y] = x
+		self._size[x] += self._size[y]
 
-	def white(self, i):
-		irep = self.find(i)
-		self.black_count[irep] -= 1
+		self._black_count[x] += self._black_count[y]
 
-	def connected_black(self, i):
-		irep = self.find(i)
-		return True if self.black_count[irep] > 0 else False
+	def change_color(self, x):
+		match self._color[x]:
+			case "white":
+				self._color[x] = "black"
+				self._black_count[self.find(x)] += 1
+			case "black":
+				self._color[x] = "white"
+				self._black_count[self.find(x)] -= 1
+
+	def black_reachable(self, x):
+		return self._black_count[self.find(x)] > 0
 
 
 def main():
 	n, q = [int(i) for i in input().split()]
 
 	uf = UnionFind(n)
-	color = ['w'] * n
 
 	for _ in range(q):
 		query = [int(i) for i in input().split()]
 
 		match query[0]:
 			case 1:
-				x, y = query[1] - 1, query[2] - 1
-				uf.unite(x, y)
+				u = query[1] - 1
+				v = query[2] - 1
+				uf.union(u, v)
 			case 2:
-				u = query[1] - 1
-				if color[u] == 'w':
-					color[u] = 'b'
-					uf.black(u)
-				else:
-					color[u] = 'w'
-					uf.white(u)
+				v = query[1] - 1
+				uf.change_color(v)
 			case 3:
-				u = query[1] - 1
-				if uf.connected_black(u):
-					print("Yes")
-				else:
-					print("No")
+				v = query[1] - 1
+				print("Yes" if uf.black_reachable(v) else "No")
 
 
 if __name__ == "__main__":

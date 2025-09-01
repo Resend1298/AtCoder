@@ -1,13 +1,12 @@
-# TODO: review
+def f(x):
+	return int(str(x)[::-1])
+
 
 def main():
-	x, y = [int(i) for i in input().split()]
-
-	a = [x, y]
+	a = [int(i) for i in input().split()]
 
 	for i in range(2, 10):
-		tmp = a[i - 1] + a[i - 2]
-		a.append(int(str(tmp)[::-1]))
+		a.append(f(a[i - 2] + a[i - 1]))
 
 	print(a[9])
 

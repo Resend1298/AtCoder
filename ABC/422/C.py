@@ -1,5 +1,3 @@
-# TODO: review
-
 def solve():
 	a, b, c = [int(i) for i in input().split()]
 
@@ -7,23 +5,18 @@ def solve():
 		print(min(a, b, c))
 		return
 
+	# use B first
 	result = b
 	a -= b
 	c -= b
-	b = 0
-
-	if c > a:
+	if a < c:
 		a, c = c, a
 
-	if a - c >= c:
+	if a >= 2 * c:
 		result += c
 		print(result)
 		return
 
-	result += a - c
-	tmp = a - c
-	a -= 2 * tmp
-	c -= tmp
 	result += (a + c) // 3
 	print(result)
 

@@ -1,77 +1,85 @@
-# TODO: review
+def left_first(leftest_unlocked, rightest_unlocked, r, l):
+	result = 0
+
+	for i in range(r - 1, leftest_unlocked, -1):
+		if l[i] == 1:
+			result += 1
+			l[i] = 0
+
+	result += 1
+
+	for i in range(leftest_unlocked + 1, rightest_unlocked):
+		if l[i] == 0:
+			result += 1
+		else:
+			result += 2
+
+	result += 1
+
+	return result
+
+
+def right_first(leftest_unlocked, rightest_unlocked, r, l):
+	result = 0
+
+	for i in range(r, rightest_unlocked):
+		if l[i] == 1:
+			result += 1
+			l[i] = 0
+
+	result += 1
+
+	for i in range(rightest_unlocked - 1, leftest_unlocked, -1):
+		if l[i] == 0:
+			result += 1
+		else:
+			result += 2
+
+	result += 1
+
+	return result
+
 
 def main():
 	n, r = [int(i) for i in input().split()]
 	l = [int(i) for i in input().split()]
 
-	if all(i == 1 for i in l):
-		print(0)
-		exit()
-
-	l_copy = l.copy()
-
 	for i in range(r):
 		if l[i] == 0:
-			left = i
+			leftest_unlocked = i
 			break
 	else:
-		left = -1
+		leftest_unlocked = None
 	for i in range(n - 1, r - 1, -1):
 		if l[i] == 0:
-			right = i
+			rightest_unlocked = i
 			break
 	else:
-		right = -1
+		rightest_unlocked = None
 
-	if left == -1:
+	if leftest_unlocked is None and rightest_unlocked is None:
+		print(0)
+	elif leftest_unlocked is None:
 		result = 0
-		for i in range(r, right):
+		for i in range(r, rightest_unlocked):
 			if l[i] == 0:
 				result += 1
 			else:
 				result += 2
 		result += 1
 		print(result)
-		exit()
-	elif right == -1:
+	elif rightest_unlocked is None:
 		result = 0
-		for i in range(r - 1, left, -1):
+		for i in range(r - 1, leftest_unlocked, -1):
 			if l[i] == 0:
 				result += 1
 			else:
 				result += 2
 		result += 1
 		print(result)
-		exit()
-
-	result_left = 0
-	for i in range(r - 1, left, -1):
-		if l[i] == 1:
-			result_left += 1
-			l[i] = 0
-	result_left += 1
-	for i in range(left + 1, right):
-		if l[i] == 0:
-			result_left += 1
-		else:
-			result_left += 2
-	result_left += 1
-
-	result_right = 0
-	l = l_copy
-	for i in range(r, right):
-		if l[i] == 1:
-			result_right += 1
-			l[i] = 0
-	result_right += 1
-	for i in range(right - 1, left, -1):
-		if l[i] == 0:
-			result_right += 1
-		else:
-			result_right += 2
-	result_right += 1
-
-	print(min(result_left, result_right))
+	else:
+		print(min(left_first(leftest_unlocked, rightest_unlocked, r, l.copy()),
+		          right_first(leftest_unlocked, rightest_unlocked, r, l.copy())))
 
 
 if __name__ == "__main__":

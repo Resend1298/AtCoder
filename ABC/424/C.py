@@ -1,16 +1,16 @@
-# TODO: review
-
 from collections import deque
 
 
 def main():
 	n = int(input())
+
 	q = deque()
 	visited = [False] * n
-	edges = [[] for _ in range(n)]
+	edges: list[list[int]] = [[] for _ in range(n)]
 
 	for i in range(n):
 		a, b = [int(i) - 1 for i in input().split()]
+
 		if a == -1 and b == -1:
 			q.append(i)
 			visited[i] = True
@@ -25,8 +25,8 @@ def main():
 
 		for i in edges[tmp]:
 			if not visited[i]:
-				visited[i] = True
 				q.append(i)
+				visited[i] = True
 
 	print(visited.count(True))
 

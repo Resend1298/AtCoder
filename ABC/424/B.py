@@ -1,14 +1,15 @@
-# TODO: review
-
 def main():
 	n, m, k = [int(i) for i in input().split()]
-	count = [m] * n
+
+	ac_count = [0] * n
 	result = []
+
 	for _ in range(k):
-		a, b = [int(i) - 1 for i in input().split()]
-		count[a] -= 1
-		if count[a] == 0:
+		a, _ = [int(i) - 1 for i in input().split()]
+		ac_count[a] += 1
+		if ac_count[a] == m:
 			result.append(a + 1)
+
 	print(*result)
 
 

@@ -1,29 +1,24 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	a = [int(i) for i in input().split()]
 
-	a_count = [0] * n
+	usable_number = set(range(1, n + 1))
+
 	for i in a:
-		if i != -1:
-			a_count[i - 1] += 1
-
-	if max(a_count) > 1:
-		print("No")
-		exit()
-
-	usable_number = []
-	for i in range(n):
-		if a_count[i] == 0:
-			usable_number.append(i + 1)
+		if i == -1:
+			continue
+		if i in usable_number:
+			usable_number.remove(i)
+		else:
+			print("No")
+			exit()
 
 	result = []
-	for i in range(n):
-		if a[i] != -1:
-			result.append(a[i])
-		else:
+	for i in a:
+		if i == -1:
 			result.append(usable_number.pop())
+		else:
+			result.append(i)
 
 	print("Yes")
 	print(*result)

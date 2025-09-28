@@ -8,6 +8,7 @@ def main():
 	for i in range(h):
 		for j in range(w):
 			if s[i][j] == '.':
+				# noinspection DuplicatedCode
 				tmp = 0
 				for x, y in [(i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)]:
 					if 0 <= x < h and 0 <= y < w and s[x][y] == '#':

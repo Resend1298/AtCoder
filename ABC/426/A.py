@@ -1,10 +1,9 @@
-# TODO: review
-
 def main():
-	version = ["Ocelot", "Serval", "Lynx"]
 	x, y = input().split()
 
-	if version.index(x) >= version.index(y):
+	versions = {"Ocelot": 1, "Serval": 2, "Lynx": 3}
+
+	if versions[x] >= versions[y]:
 		print("Yes")
 	else:
 		print("No")

@@ -1,3 +1,5 @@
+# TODO: review
+
 def f(x):
 	return sum([int(i) for i in list(str(x))])
 

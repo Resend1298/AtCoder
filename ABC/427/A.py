@@ -1,9 +1,8 @@
-# TODO: review
-
 def main():
 	s = input()
 
-	print(s[:(len(s) + 1) // 2 - 1] + s[(len(s) + 1) // 2:])
+	center = (len(s) + 1) // 2 - 1
+	print(s[:center] + s[center + 1:])
 
 
 if __name__ == "__main__":

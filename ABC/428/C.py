@@ -1,3 +1,5 @@
+# TODO: TLE
+
 def main():
 	q = int(input())
 

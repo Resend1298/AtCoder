@@ -1,25 +1,16 @@
-# TODO: review
-
-from collections import defaultdict
+from collections import Counter
 
 
 def main():
 	n = int(input())
 	a = [int(i) for i in input().split()]
 
-	counter = defaultdict(list)
-	for i in range(n):
-		counter[a[i]].append(i)
-
+	a_counter = Counter(a)
 	result = 0
 
-	for value in counter.values():
-		if len(value) < 2:
-			continue
-
-		lenv = len(value)
-
-		result += lenv * (lenv - 1) // 2 * (n - lenv)
+	for i in a_counter.values():
+		if i >= 2:
+			result += i * (i - 1) // 2 * (n - i)
 
 	print(result)
 

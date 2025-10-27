@@ -1,46 +1,38 @@
-# TODO: TLE
-
 from collections import deque
 
 
 def main():
 	n, m = [int(i) for i in input().split()]
-	edges = [[] for _ in range(n)]
+	edges: list[list[int]] = [[] for _ in range(n)]
 	for _ in range(m):
 		u, v = [int(i) - 1 for i in input().split()]
 		edges[u].append(v)
 		edges[v].append(u)
-	safe = set()
-	danger = set()
 	s = input()
-	for i in range(n):
-		if s[i] == 'S':
-			safe.add(i)
-		else:
-			danger.add(i)
-	danger_list = list(danger)
+	safe = {i for i in range(n) if s[i] == "S"}
+	danger = {i for i in range(n) if s[i] == "D"}
 
-	for i in danger_list:
-		q = deque()
-		visited = [False] * n
+	q = deque()
+	visited = [set() for _ in range(n)]
+	result = [0] * n
 
-		q.append((i, 0))
-		visited[i] = True
+	for i in safe:
+		q.append((i, 0, i))
+		visited[i].add(i)
 
-		result = []
+	while q:
+		v, cost, origin = q.popleft()
 
-		while len(result) < 2 and q:
-			tmp, cost = q.popleft()
+		if v in danger:
+			result[v] += cost
 
-			if tmp in safe:
-				result.append(cost)
+		for i in edges[v]:
+			if len(visited[i]) < 2 and origin not in visited[i]:
+				q.append((i, cost + 1, origin))
+				visited[i].add(origin)
 
-			for j in edges[tmp]:
-				if not visited[j]:
-					q.append((j, cost + 1))
-					visited[j] = True
-
-		print(result[0] + result[1])
+	for i in sorted(danger):
+		print(result[i])
 
 
 if __name__ == "__main__":

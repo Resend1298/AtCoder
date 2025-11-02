@@ -1,55 +1,53 @@
-# TODO: review
+# CPython TLE, PyPy AC
 
 from sortedcontainers import SortedList
 
 
 def main():
-	n = int(input())
+	_ = int(input())
 	x = [int(i) for i in input().split()]
 
-	result = 0
-	location = SortedList([0])
+	first_person = x.pop(0)
+	location = SortedList([0, first_person])
+	result = first_person * 2
+	print(result)
 
 	for i in x:
 		if i > location[-1]:
-			if len(location) != 1:
-				tmp = location[-1] - location[-2]
-				if tmp <= i - location[-1]:
-					result += i - location[-1]
-					location.add(i)
-				else:
-					result -= tmp
-					result += (i - location[-1]) * 2
-					location.add(i)
-			else:
-				result += (i - location[-1]) * 2
-				location.add(i)
+			# will be placed at the right end
+			# therefore, only the d_rightest might change
+
+			current_d = location[-1] - location[-2]
+			new_d = i - location[-1]
+			if new_d < current_d:
+				result -= current_d
+				result += new_d
+
+			result += i - location[-1]
 		else:
+			# will be placed between two existing locations
+			# therefore, both d_left and d_right might change
+
 			left = location.bisect_left(i) - 1
 			right = left + 1
-			left_value = location[left]
-			right_value = location[right]
 
-			result += min(i - left_value, right_value - i)
+			current_d = min(location[left] - location[left - 1], location[right] - location[left]) if left > 0 else \
+				location[right] - location[left]
+			new_d = i - location[left]
+			if new_d < current_d:
+				result -= current_d
+				result += new_d
 
-			if left != 0:
-				left_current_d = min(left_value - location[left - 1], right_value - left_value)
-			else:
-				left_current_d = right_value - left_value
-			if i - left_value < left_current_d:
-				result -= left_current_d
-				result += i - left_value
+			current_d = min(location[right + 1] - location[right], location[right] - location[left]) if right < len(
+				location) - 1 else location[right] - location[left]
+			new_d = location[right] - i
+			if new_d < current_d:
+				result -= current_d
+				result += new_d
 
-			if right != len(location) - 1:
-				right_current_d = min(right_value - left_value, location[right + 1] - right_value)
-			else:
-				right_current_d = right_value - left_value
-			if right_value - i < right_current_d:
-				result -= right_current_d
-				result += right_value - i
+			result += min(location[right] - i, i - location[left])
 
-			location.add(i)
-
+		location.add(i)
 		print(result)
 
 

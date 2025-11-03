@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -7,68 +5,42 @@ def main():
 	n, a, b = [int(i) for i in input().split()]
 	s = input()
 
-	b_index = SortedList()
-	last_b_index = -1
-	for i in range(n):
-		if s[i] == 'b':
-			b_index.add(i)
-			if last_b_index == -1:
-				last_b_index = i
-	if last_b_index != -1:
-		last_b_index = -2
-
-	r = 0
 	result = 0
-	current_a = 0
-	current_b = 0
-	if s[0] == 'a':
-		current_a += 1
-	else:
-		current_b += 1
-		last_b_index = 0
+	current_a_count = 1 if s[0] == 'a' else 0
+	current_b_count = 1 if s[0] == 'b' else 0
+	b_location = SortedList(i for i in range(n) if s[i] == 'b')
+	r = 0
 
 	for l in range(n):
-		while r + 1 < n and current_a < a:
+		while r + 1 < n and current_a_count < a:
 			r += 1
 			if s[r] == 'a':
-				current_a += 1
+				current_a_count += 1
 			else:
-				current_b += 1
-				last_b_index = r
-		if r == n - 1 and current_a < a:
+				current_b_count += 1
+		if r == n - 1 and current_a_count < a:
 			break
 
-		if current_b < b:
-			if last_b_index != -1 and last_b_index != -2:
-				tmp = b_index.bisect_left(last_b_index)
-				tmp2 = min(len(b_index) - 1, tmp + b - current_b)
-				tmp2 = b_index[tmp2]
-				if tmp2 < r or tmp + b - current_b >= len(b_index):
-					result += n - r
-				else:
-					result += tmp2 - r
-			elif last_b_index == -1:
-				result += n - r
+		if current_b_count < b:
+			leftest_b_index = b_location.bisect_left(l)
+			if leftest_b_index != len(b_location):
+				right_bound_b_index = leftest_b_index + b - 1
+				right_bound_b = b_location[right_bound_b_index] if right_bound_b_index < len(b_location) else n
+				result += right_bound_b - r
 			else:
-				tmp = b - 1
-				if tmp >= len(b_index):
-					result += n - r
-				else:
-					tmp2 = b_index[tmp]
-					result += tmp2 - r
+				result += n - r
 
 		if s[l] == 'a':
-			current_a -= 1
+			current_a_count -= 1
 		else:
-			current_b -= 1
+			current_b_count -= 1
 
 		if l == r and r + 1 < n:
 			r += 1
 			if s[r] == 'a':
-				current_a += 1
+				current_a_count += 1
 			else:
-				current_b += 1
-				last_b_index = r
+				current_b_count += 1
 
 	print(result)
 

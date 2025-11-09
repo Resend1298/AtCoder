@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	x = int(input())
 	n = int(input())
@@ -10,12 +8,14 @@ def main():
 
 	for _ in range(q):
 		p = int(input()) - 1
-		if not attached[p]:
-			attached[p] = True
-			x += w[p]
-		else:
-			attached[p] = False
+
+		if attached[p]:
 			x -= w[p]
+			attached[p] = False
+		else:
+			x += w[p]
+			attached[p] = True
+
 		print(x)
 
 

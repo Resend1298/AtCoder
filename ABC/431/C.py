@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -14,11 +12,11 @@ def main():
 
 	for i in h:
 		body_index = b.bisect_left(i)
-		if body_index == len(b):
-			break
-		else:
+		if body_index != len(b):
 			result += 1
 			b.pop(body_index)
+		else:
+			break
 
 	if result >= k:
 		print("Yes")

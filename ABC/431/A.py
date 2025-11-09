@@ -1,9 +1,7 @@
-# TODO: review
-
 def main():
 	h, b = [int(i) for i in input().split()]
 
-	if h <= b:
+	if b >= h:
 		print(0)
 	else:
 		print(h - b)

@@ -1,21 +1,18 @@
-# TODO: review
-
 def main():
-	x = int(input())
+	numbers = [int(i) for i in list(input())]
 
-	x = list(str(x))
-	x = [int(i) for i in x]
-	x.sort()
+	numbers.sort()
 
-	if x[0] != 0:
-		print(''.join(str(i) for i in x))
+	if 0 not in numbers:
+		print(''.join(str(i) for i in numbers))
 	else:
-		for i in x:
+		for i in numbers:
 			if i != 0:
-				tmp = i
-				x.remove(i)
+				first_digit = i
+				numbers.remove(i)
 				break
-		print(str(tmp) + ''.join(str(i) for i in x))
+		# noinspection PyUnboundLocalVariable
+		print(str(first_digit) + ''.join(str(i) for i in numbers))
 
 
 if __name__ == "__main__":

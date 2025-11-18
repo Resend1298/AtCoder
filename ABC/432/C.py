@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, x, y = [int(i) for i in input().split()]
 	a = [int(i) for i in input().split()]
@@ -11,12 +9,13 @@ def main():
 		exit()
 
 	result = a[0]
-	for i in range(1, n):
-		if ((a[i] - a[0]) * y) % (y - x) != 0:
+	for i in a[1:]:
+		if (y * (i - a[0])) % (y - x) != 0:
 			print(-1)
 			exit()
 		else:
-			result += a[i] - ((a[i] - a[0]) * y) // (y - x)
+			result += i - y * (i - a[0]) // (y - x)
+
 	print(result)
 
 

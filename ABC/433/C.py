@@ -1,7 +1,5 @@
-# TODO: review
-
 def main():
-	s = input()
+	s = [int(i) for i in list(input())]
 
 	rle_s = []
 	pre_char = s[0]
@@ -16,12 +14,9 @@ def main():
 	rle_s.append((pre_char, pre_count))
 
 	result = 0
-
 	for i in range(len(rle_s) - 1):
-		if int(rle_s[i][0]) + 1 != int(rle_s[i + 1][0]):
-			continue
-
-		result += min(rle_s[i][1], rle_s[i + 1][1])
+		if rle_s[i][0] + 1 == rle_s[i + 1][0]:
+			result += min(rle_s[i][1], rle_s[i + 1][1])
 
 	print(result)
 

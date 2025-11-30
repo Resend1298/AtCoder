@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
 	sizes = [[] for _ in range(m)]

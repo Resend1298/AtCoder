@@ -1,27 +1,21 @@
-# TODO: review
-
 def solve():
 	n, h = [int(i) for i in input().split()]
-	targets = [[int(i) for i in input().split()] for _ in range(n)]
+	tlu = [[int(i) for i in input().split()] for _ in range(n)]
 
-	current_low = h
-	current_high = h
-	current_time = 0
+	current_t = 0
+	possible_high = h
+	possible_low = h
 
-	for t, target_low, target_high in targets:
-		time_diff = t - current_time
-		possible_low = current_low - time_diff
-		possible_high = current_high + time_diff
-
-		if possible_high < target_low or possible_low > target_high:
+	for t, l, u in tlu:
+		if possible_high + t - current_t < l or possible_low - (t - current_t) > u:
 			print("No")
-			return
+			break
 
-		current_low = max(possible_low, target_low)
-		current_high = min(possible_high, target_high)
-		current_time = t
-
-	print("Yes")
+		possible_high = min(possible_high + t - current_t, u)
+		possible_low = max(possible_low - (t - current_t), l)
+		current_t = t
+	else:
+		print("Yes")
 
 
 def main():

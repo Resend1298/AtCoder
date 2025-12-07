@@ -1,39 +1,34 @@
-# TODO: review
-
 from collections import deque
 
 
 def main():
 	n, m = [int(i) for i in input().split()]
-	edges = [[] for _ in range(n)]
+	edges: list[list[int]] = [[] for _ in range(n)]
 	for _ in range(m):
 		x, y = [int(i) - 1 for i in input().split()]
 		edges[y].append(x)
 
-	q = deque()
+	bfs_q = deque()
 	visited = [False] * n
 
-	q_count = int(input())
-	for _ in range(q_count):
-		match [int(i) for i in input().split()]:
-			case [1, v]:
-				v -= 1
+	q = int(input())
+	for _ in range(q):
+		match [int(i) - 1 for i in input().split()]:
+			case [0, v]:
 				if not visited[v]:
+					bfs_q.append(v)
 					visited[v] = True
-					q.append(v)
-			case [2, v]:
-				v -= 1
-
+			case [1, v]:
 				if visited[v]:
 					print("Yes")
 					continue
 
-				while q:
-					tmp = q.popleft()
+				while bfs_q:
+					tmp = bfs_q.popleft()
 					for i in edges[tmp]:
 						if not visited[i]:
+							bfs_q.append(i)
 							visited[i] = True
-							q.append(i)
 
 				print("Yes" if visited[v] else "No")
 

@@ -1,11 +1,8 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	s = input()
 
-	o_count = n - len(s)
-	print('o' * o_count + s)
+	print('o' * (n - len(s)) + s)
 
 
 if __name__ == "__main__":

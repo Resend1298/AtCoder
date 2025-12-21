@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -8,19 +6,19 @@ def main():
 	a = [int(i) for i in input().split()]
 	b = [int(i) for i in input().split()]
 
-	b.sort()
-	b_prefixsum = [0]
-	for i in b:
-		b_prefixsum.append(b_prefixsum[-1] + i)
 	b = SortedList(b)
-
+	b_prefix_sum = [0]
+	for i in b:
+		b_prefix_sum.append(b_prefix_sum[-1] + i)
 	result = 0
+
 	for i in a:
-		smaller_equal_index = b.bisect_right(i) - 1
-		if smaller_equal_index != -1:
-			result += i * (smaller_equal_index + 1) - b_prefixsum[smaller_equal_index + 1]
-		if smaller_equal_index != m - 1:
-			result += b_prefixsum[m] - b_prefixsum[smaller_equal_index + 1] - i * (m - (smaller_equal_index + 1))
+		less_than_or_equal_index = b.bisect_right(i) - 1
+		if less_than_or_equal_index != -1:
+			result += i * (less_than_or_equal_index + 1) - b_prefix_sum[less_than_or_equal_index + 1]
+		if less_than_or_equal_index != m - 1:
+			result += b_prefix_sum[m] - b_prefix_sum[less_than_or_equal_index + 1] - i * (
+					m - less_than_or_equal_index - 1)
 		result %= 998244353
 
 	print(result)

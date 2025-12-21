@@ -1,19 +1,15 @@
-# TODO: review
-
 def solve():
 	n = int(input())
-	reindeers = [[int(i) for i in input().split()] for _ in range(n)]
+	wp = [[int(i) for i in input().split()] for _ in range(n)]
 
-	diff = [i[0] + i[1] for i in reindeers]
-	diff.sort()
-	current_diff = sum(i[0] for i in reindeers)
-	result = n
+	sum_w = sum(i[0] for i in wp)
+	diff = sorted((i[0] + i[1] for i in wp), reverse=True)
 
-	while current_diff > 0:
-		result -= 1
-		current_diff -= diff.pop()
-
-	print(result)
+	for i in range(n):
+		sum_w -= diff[i]
+		if sum_w <= 0:
+			print(n - i - 1)
+			break
 
 
 def main():

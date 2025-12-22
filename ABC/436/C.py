@@ -1,22 +1,14 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
 
-	blocks = set()
-	result = 0
+	placed = set()
 
 	for _ in range(m):
 		r, c = [int(i) - 1 for i in input().split()]
-		if (r, c) not in blocks and (r + 1, c) not in blocks and (r, c + 1) not in blocks and (r + 1,
-		                                                                                       c + 1) not in blocks:
-			blocks.add((r, c))
-			blocks.add((r + 1, c))
-			blocks.add((r, c + 1))
-			blocks.add((r + 1, c + 1))
-			result += 1
+		if all(i not in placed for i in [(r, c), (r + 1, c), (r, c + 1), (r + 1, c + 1)]):
+			placed.update([(r, c), (r + 1, c), (r, c + 1), (r + 1, c + 1)])
 
-	print(result)
+	print(len(placed) // 4)
 
 
 if __name__ == "__main__":

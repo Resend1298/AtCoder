@@ -1,5 +1,3 @@
-# TODO: review
-
 from collections import defaultdict, deque
 
 
@@ -20,18 +18,17 @@ def main():
 		c_prefix_sum.append(c_prefix_sum[-1] + i)
 
 	bc_sum = defaultdict(lambda: float("-inf"))
-	for i in range(1, n):
-		bc_sum[b_prefix_sum[i] - c_prefix_sum[i] + c_prefix_sum[-1]] = max(
-			bc_sum[b_prefix_sum[i] - c_prefix_sum[i] + c_prefix_sum[-1]], i - 1)
-
+	for i in range(n - 1):
+		current_sum = b_prefix_sum[i + 1] + c_prefix_sum[-1] - c_prefix_sum[i + 1]
+		bc_sum[current_sum] = max(bc_sum[current_sum], i)
 	bc_sum = deque(sorted(bc_sum.items(), reverse=True))
 
 	result = float("-inf")
 	for i in range(n - 2):
-		tmp = a_prefix_sum[i + 1] - b_prefix_sum[i + 1]
 		while bc_sum[0][1] <= i:
 			bc_sum.popleft()
-		result = max(result, tmp + bc_sum[0][0])
+		current_sum = a_prefix_sum[i + 1] + bc_sum[0][0] - b_prefix_sum[i + 1]
+		result = max(result, current_sum)
 
 	print(result)
 

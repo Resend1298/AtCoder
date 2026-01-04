@@ -1,24 +1,18 @@
-# TODO: review
+def operation(x):
+	x_digits = [int(i) for i in str(x)]
+	return sum(i ** 2 for i in x_digits)
+
 
 def main():
 	n = int(input())
 
 	visited = set()
 
-	while n not in visited:
+	while n not in visited and n != 1:
 		visited.add(n)
+		n = operation(n)
 
-		n = str(n)
-		tmp = 0
-		for i in n:
-			current = int(i)
-			tmp += current ** 2
-		n = tmp
-
-	if n == 1:
-		print("Yes")
-	else:
-		print("No")
+	print("Yes" if n == 1 else "No")
 
 
 if __name__ == "__main__":

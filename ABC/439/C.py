@@ -1,4 +1,4 @@
-# TODO: review
+# CPython TLE, PyPy AC
 
 from collections import Counter
 
@@ -7,15 +7,13 @@ def main():
 	n = int(input())
 
 	max_x = int((n / 2) ** 0.5)
-	result = Counter()
-	for x in range(1, max_x + 1):
-		for y in range(x + 1, n + 1):
-			if x ** 2 + y ** 2 > n:
-				break
-			result[x ** 2 + y ** 2] += 1
+	counter = Counter()
 
-	result = [k for k, v in result.items() if v == 1]
-	result.sort()
+	for x in range(1, max_x + 1):
+		for y in range(x + 1, int((n - x ** 2) ** 0.5) + 1):
+			counter[x ** 2 + y ** 2] += 1
+
+	result = sorted(k for k, v in counter.items() if v == 1)
 	print(len(result))
 	print(*result)
 

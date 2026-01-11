@@ -1,41 +1,25 @@
-# TODO: unsolved
-
-from collections import defaultdict
-from sys import setrecursionlimit
+from sortedcontainers import SortedList
 
 
-def search(ab, current_index, max_used, saved):
-	if (current_index, max_used) in saved:
-		return saved[(current_index, max_used)]
-
-	if current_index >= len(ab):
-		saved[(current_index, max_used)] = 0
-		return 0
-
-	a, b = ab[current_index]
-	if b > max_used:
-		saved[(current_index, max_used)] = max(
-			search(ab, current_index + 1, max_used, saved),
-			search(ab, current_index + 1, b, saved) + 1
-		)
-		return saved[(current_index, max_used)]
-	else:
-		saved[(current_index, max_used)] = search(ab, current_index + 1, max_used, saved)
-		return saved[(current_index, max_used)]
+def lis_len(list_):
+	lis = SortedList()
+	for i in list_:
+		if not lis or lis[-1] < i:
+			lis.add(i)
+		else:
+			index = lis.bisect_left(i)
+			del lis[index]
+			lis.add(i)
+	return len(lis)
 
 
 def main():
 	n = int(input())
 	ab = [[int(i) for i in input().split()] for _ in range(n)]
 
-	ab_dict = defaultdict(lambda: float("inf"))
-	for a, b in ab:
-		ab_dict[a] = min(ab_dict[a], b)
-	ab = sorted(ab_dict.items())
-
-	setrecursionlimit(10 ** 7)
-	saved = {}
-	print(search(ab, 0, -1, saved))
+	ab.sort(key=lambda x: (x[0], -x[1]))
+	b = [i[1] for i in ab]
+	print(lis_len(b))
 
 
 if __name__ == "__main__":

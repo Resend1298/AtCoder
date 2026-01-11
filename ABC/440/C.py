@@ -1,5 +1,3 @@
-# TODO: review
-
 def solve():
 	n, w = [int(i) for i in input().split()]
 	c = [int(i) for i in input().split()]
@@ -8,14 +6,10 @@ def solve():
 	for i in range(n):
 		cost_sum[(i + 1) % (w * 2)] += c[i]
 
-	result = sum(cost_sum[:w])
-	current = result
-
-	for i in range(w, w * 2):
-		current = current + cost_sum[i] - cost_sum[i - w]
-		result = min(result, current)
-	for i in range(w - 1):
-		current = current + cost_sum[i] - cost_sum[i + w]
+	cost_sum += cost_sum[:w - 1]
+	result = current = sum(cost_sum[:w])
+	for i in range(w * 2 - 1):
+		current = current - cost_sum[i] + cost_sum[i + w]
 		result = min(result, current)
 
 	print(result)

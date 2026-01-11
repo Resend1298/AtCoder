@@ -1,7 +1,5 @@
-# TODO: review
-
 def main():
-	n = int(input())
+	_ = int(input())
 	t = [int(i) for i in input().split()]
 
 	result = sorted(enumerate(t), key=lambda x: x[1])

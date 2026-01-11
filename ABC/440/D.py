@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -9,35 +7,33 @@ def main():
 
 	a.sort()
 	a_sortedlist = SortedList(a)
-	a_diff = [a[i + 1] - a[i] - 1 for i in range(n - 1)]
-	prefix_sum = [0]
-	for i in a_diff:
-		prefix_sum.append(prefix_sum[-1] + i)
-	prefix_sum_sortedlist = SortedList(prefix_sum)
+	space = [a[i + 1] - a[i] - 1 for i in range(n - 1)]
+	space_prefix_sum = [0]
+	for i in space:
+		space_prefix_sum.append(space_prefix_sum[-1] + i)
+	space_prefix_sum_sortedlist = SortedList(space_prefix_sum)
 
 	for _ in range(q):
 		x, y = [int(i) for i in input().split()]
 
-		next_a = a_sortedlist.bisect_left(x)
-		if next_a == n:
+		right_a_index = a_sortedlist.bisect_left(x)
+		if right_a_index == n:
 			print(x + y - 1)
 			continue
 
-		usable_from_x_to_next_a = a[next_a] - x
-		if usable_from_x_to_next_a >= y:
+		spaces_until_right_a = a[right_a_index] - x
+		if spaces_until_right_a >= y:
 			print(x + y - 1)
 			continue
-		y -= usable_from_x_to_next_a
-		x_index = next_a
+		y -= spaces_until_right_a
 
-		if prefix_sum[-1] - prefix_sum[x_index] < y:
-			print(a[-1] + (y - (prefix_sum[-1] - prefix_sum[x_index])))
+		enough_space_index = space_prefix_sum_sortedlist.bisect_left(y + space_prefix_sum[right_a_index])
+		if enough_space_index == n:
+			print(y - space_prefix_sum[-1] + space_prefix_sum[right_a_index] + a[-1])
 			continue
+		y -= space_prefix_sum[enough_space_index - 1] - space_prefix_sum[right_a_index]
 
-		index = prefix_sum_sortedlist.bisect_left(y + prefix_sum[x_index])
-		x = a[index - 1]
-		y -= prefix_sum[index - 1] - prefix_sum[x_index]
-		print(x + y)
+		print(a[enough_space_index - 1] + y)
 
 
 if __name__ == "__main__":

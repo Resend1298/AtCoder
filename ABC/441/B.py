@@ -1,7 +1,5 @@
-# TODO: review
-
 def main():
-	n, m = [int(i) for i in input().split()]
+	_ = [int(i) for i in input().split()]
 	s = set(input())
 	t = set(input())
 	q = int(input())
@@ -9,9 +7,11 @@ def main():
 	for _ in range(q):
 		w = set(input())
 
-		if any(i for i in w if i not in t):
+		if w - t:
+			# noinspection SpellCheckingInspection
 			print("Takahashi")
-		elif any(i for i in w if i not in s):
+		elif w - s:
+			# noinspection SpellCheckingInspection
 			print("Aoki")
 		else:
 			print("Unknown")

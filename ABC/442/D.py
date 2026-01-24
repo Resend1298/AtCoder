@@ -1,3 +1,5 @@
+# TODO: review
+
 class SegmentTree:
 	def __init__(self, combine_func, default_node_value, array):
 		"""

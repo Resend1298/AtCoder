@@ -1,14 +1,10 @@
-# TODO: review
+from math import ceil
+
 
 def main():
 	n, k = [int(i) for i in input().split()]
 
-	current_sum = 0
-	for i in range(10 ** 100):
-		current_sum += n + i
-		if current_sum >= k:
-			print(i)
-			exit()
+	print(ceil((-2 * n - 1 + (4 * n ** 2 - 4 * n + 8 * k + 1) ** 0.5) / 2))
 
 
 if __name__ == "__main__":

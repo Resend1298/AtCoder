@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
 	edges = [[] for _ in range(n)]
@@ -9,12 +7,10 @@ def main():
 		edges[b].append(a)
 
 	result = []
+
 	for i in range(n):
-		possible = n - 1 - len(edges[i])
-		if possible >= 3:
-			result.append(possible * (possible - 1) * (possible - 2) // 6)
-		else:
-			result.append(0)
+		peer_count = n - 1 - len(edges[i])
+		result.append(peer_count * (peer_count - 1) * (peer_count - 2) // 6)
 
 	print(*result)
 

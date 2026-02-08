@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n = [int(i) for i in list(input())]
 

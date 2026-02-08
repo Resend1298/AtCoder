@@ -1,22 +1,20 @@
-# TODO: review
-
 def main():
 	q = int(input())
 
-	volume = 0
 	playing = False
+	volume = 0
 
 	for _ in range(q):
 		match int(input()):
 			case 1:
 				volume += 1
 			case 2:
-				if volume >= 1:
-					volume -= 1
+				volume -= 1
+				volume = max(0, volume)
 			case 3:
 				playing = not playing
 
-		if volume >= 3 and playing:
+		if playing and volume >= 3:
 			print("Yes")
 		else:
 			print("No")

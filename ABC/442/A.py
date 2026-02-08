@@ -1,9 +1,7 @@
-# TODO: review
-
 def main():
 	s = input()
 
-	print(len([i for i in s if i == 'i' or i == 'j']))
+	print(s.count('i') + s.count('j'))
 
 
 if __name__ == "__main__":

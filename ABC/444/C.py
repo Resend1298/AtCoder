@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	a = [int(i) for i in input().split()]
@@ -7,24 +5,15 @@ def main():
 	a.sort()
 	result = []
 
+	# all sticks broke
+	if n % 2 == 0 and all(a[i] + a[n - 1 - i] == a[0] + a[-1] for i in range(n // 2)):
+		result.append(a[0] + a[-1])
+
+	# at least one stick remains
 	l = a[-1]
 	l_count = a.count(l)
-	if (n - l_count) % 2 == 0:
-		half_count = (n - l_count) // 2
-		for i in range(half_count):
-			if a[i] + a[n - l_count - 1 - i] != l:
-				break
-		else:
-			result.append(a[-1])
-
-	if n % 2 == 0:
-		half_count = n // 2
-		l = a[0] + a[-1]
-		for i in range(half_count):
-			if a[i] + a[n - 1 - i] != l:
-				break
-		else:
-			result.append(a[0] + a[-1])
+	if (n - l_count) % 2 == 0 and all(a[i] + a[n - l_count - 1 - i] == l for i in range((n - l_count) // 2)):
+		result.append(l)
 
 	result.sort()
 	print(*result)

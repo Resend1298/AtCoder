@@ -5,6 +5,7 @@ def solve():
 	n, m, x, y = [int(i) for i in input().split()]
 	x -= 1
 	y -= 1
+	# noinspection DuplicatedCode
 	edges = [[] for _ in range(n)]
 	for _ in range(m):
 		u, v = [int(i) - 1 for i in input().split()]

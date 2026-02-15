@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	s = [input() for _ in range(n)]
@@ -8,7 +6,7 @@ def main():
 
 	for i in s:
 		k = (m - len(i)) // 2
-		print('.' * k + i + '.' * k)
+		print(k * '.' + i + k * '.')
 
 
 if __name__ == "__main__":

@@ -1,44 +1,42 @@
-# TODO: review
-
 def main():
 	m, a, b = [int(i) for i in input().split()]
 
 	result = 0
-	cache = {}
-	cache_result = {}
+	cache_satisfied = set()
+	cache_not_satisfied = set()
 
-	for x in range(m):
-		for y in range(m):
-			if x == 0 or y == 0:
-				cache_result[(x, y)] = False
-				cache[(x, y)] = (x, y)
+	for x in range(1, m):
+		for y in range(1, m):
+			if (x, y) in cache_satisfied:
+				result += 1
+				continue
+			if (x, y) in cache_not_satisfied:
 				continue
 
 			n_2 = x
 			n_1 = y
+			encountered = {(n_2, n_1)}
+
 			while True:
-				new = (a * n_1 + b * n_2) % m
-				n_2 = n_1
-				n_1 = new
+				n_2, n_1 = n_1, (a * n_1 + b * n_2) % m
 
-				if new == 0:
-					cache_result[(x, y)] = False
-					cache[(n_2, n_1)] = (x, y)
+				if (n_2, n_1) in cache_satisfied:
+					result += 1
+					cache_satisfied |= encountered
+					break
+				if (n_2, n_1) in cache_not_satisfied:
+					cache_not_satisfied |= encountered
 					break
 
-				if (n_2, n_1) in cache:
-					if cache[(n_2, n_1)] in cache_result:
-						if cache_result[cache[(n_2, n_1)]]:
-							result += 1
-							cache_result[(x, y)] = True
-						else:
-							cache_result[(x, y)] = False
-					else:
-						result += 1
-						cache_result[(x, y)] = True
+				if n_1 == 0:
+					cache_not_satisfied |= encountered
+					break
+				if (n_2, n_1) in encountered:
+					result += 1
+					cache_satisfied |= encountered
 					break
 
-				cache[(n_2, n_1)] = (x, y)
+				encountered.add((n_2, n_1))
 
 	print(result)
 

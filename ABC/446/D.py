@@ -1,21 +1,14 @@
-# TODO: review
-
 def main():
 	_ = int(input())
 	a = [int(i) for i in input().split()]
 
 	max_len = {}
+
 	for i in a:
-		if i - 1 in max_len:
-			if i in max_len:
-				max_len[i] = max(max_len[i], max_len[i - 1] + 1)
-			else:
-				max_len[i] = max_len[i - 1] + 1
+		if i - 1 not in max_len:
+			max_len[i] = 1
 		else:
-			if i in max_len:
-				max_len[i] = max(max_len[i], 1)
-			else:
-				max_len[i] = 1
+			max_len[i] = max_len[i - 1] + 1
 
 	print(max(max_len.values()))
 

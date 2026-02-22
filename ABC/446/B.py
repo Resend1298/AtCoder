@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
 	l = []
@@ -8,20 +6,16 @@ def main():
 		l.append(int(input()))
 		x.append([int(i) - 1 for i in input().split()])
 
-	result = []
-	chosen = [False] * m
+	available = [True] * m
 
-	for i in range(n):
-		for j in x[i]:
-			if not chosen[j]:
-				chosen[j] = True
-				result.append(j + 1)
+	for i in x:
+		for j in i:
+			if available[j]:
+				available[j] = False
+				print(j + 1)
 				break
 		else:
-			result.append(0)
-
-	for i in result:
-		print(i)
+			print(0)
 
 
 if __name__ == "__main__":

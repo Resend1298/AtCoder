@@ -1,5 +1,3 @@
-# TODO: review
-
 from collections import deque
 
 
@@ -12,12 +10,14 @@ def solve():
 
 	for i in range(n):
 		q.append([i, a[i]])
+
 		while b[i] > 0:
-			tmp = min(b[i], q[0][1])
-			b[i] -= tmp
-			q[0][1] -= tmp
+			use_count = min(b[i], q[0][1])
+			b[i] -= use_count
+			q[0][1] -= use_count
 			if q[0][1] == 0:
 				q.popleft()
+
 		while q and q[0][0] + d <= i:
 			q.popleft()
 

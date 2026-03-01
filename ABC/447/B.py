@@ -1,5 +1,3 @@
-# TODO: review
-
 from collections import Counter
 
 

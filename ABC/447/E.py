@@ -1,9 +1,10 @@
-# TODO: review
-
+# noinspection DuplicatedCode
 class UnionFind:
 	def __init__(self, n):
 		self._parent = [i for i in range(n)]
 		self._size = [1] * n
+
+		self.connected_count = n
 
 	def find(self, x):
 		if self._parent[x] == x:
@@ -24,6 +25,8 @@ class UnionFind:
 		self._parent[y] = x
 		self._size[x] += self._size[y]
 
+		self.connected_count -= 1
+
 
 def main():
 	n, m = [int(i) for i in input().split()]
@@ -31,22 +34,18 @@ def main():
 
 	uf = UnionFind(n)
 	result = 0
-	connected = n
 
-	pre_calc_cost = [1]
+	cost = [1]
 	for i in range(1, m + 1):
-		pre_calc_cost.append((pre_calc_cost[-1] * 2) % 998244353)
+		cost.append((cost[-1] * 2) % 998244353)
 
 	for i in range(m - 1, -1, -1):
 		u, v = edges[i]
 
-		if connected > 2:
-			if uf.find(u) != uf.find(v):
-				connected -= 1
-				uf.union(u, v)
-		else:
-			if uf.find(u) != uf.find(v):
-				result = (result + pre_calc_cost[i + 1]) % 998244353
+		if uf.connected_count > 2:
+			uf.union(u, v)
+		elif uf.find(u) != uf.find(v):
+			result = (result + cost[i + 1]) % 998244353
 
 	print(result)
 

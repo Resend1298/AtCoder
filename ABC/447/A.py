@@ -1,9 +1,9 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
 
-	if m <= (n + 1) // 2:
+	available = n // 2 if n % 2 == 0 else n // 2 + 1
+
+	if available >= m:
 		print("Yes")
 	else:
 		print("No")

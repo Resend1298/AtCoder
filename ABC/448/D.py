@@ -1,6 +1,3 @@
-# TODO: review
-
-from collections import Counter
 from sys import setrecursionlimit
 
 
@@ -14,33 +11,37 @@ def main():
 		edges[v].append(u)
 
 	visited = [False] * n
-	visited_a = Counter()
-	result = [True] * n
+	visited_a = set()
+	result = [False] * n
 
 	def dfs(i):
 		visited[i] = True
-		visited_a[a[i]] += 1
-		if visited_a[a[i]] >= 2:
-			dfs_false(i)
+
+		if a[i] in visited_a:
+			dfs_true(i)
+			return
+
+		visited_a.add(a[i])
 
 		for j in edges[i]:
 			if not visited[j]:
 				dfs(j)
 
-		visited_a[a[i]] -= 1
+		visited_a.remove(a[i])
 
-	def dfs_false(i):
+	def dfs_true(i):
 		visited[i] = True
-		result[i] = False
+		result[i] = True
+
 		for j in edges[i]:
 			if not visited[j]:
-				dfs_false(j)
+				dfs_true(j)
 
 	setrecursionlimit(10 ** 7)
 	dfs(0)
 
 	for i in result:
-		print("No" if i else "Yes")
+		print("Yes" if i else "No")
 
 
 if __name__ == "__main__":

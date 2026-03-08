@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
 	c = [int(i) for i in input().split()]
@@ -8,8 +6,9 @@ def main():
 	result = 0
 
 	for a, b in ab:
-		result += min(b, c[a - 1])
-		c[a - 1] -= min(b, c[a - 1])
+		limit = min(b, c[a - 1])
+		result += limit
+		c[a - 1] -= limit
 
 	print(result)
 

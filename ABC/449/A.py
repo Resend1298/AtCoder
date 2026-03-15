@@ -1,5 +1,3 @@
-# TODO: review
-
 from math import pi
 
 

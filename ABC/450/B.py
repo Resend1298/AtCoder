@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n = int(input())
 	cost = [[int(i) for i in input().split()] for _ in range(n - 1)]

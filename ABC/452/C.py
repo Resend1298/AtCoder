@@ -1,31 +1,24 @@
-# TODO: review
-
 from collections import defaultdict
 
 
 def main():
 	n = int(input())
-	a = []
-	b = []
-	for _ in range(n):
-		tmp = [int(i) for i in input().split()]
-		a.append(tmp[0])
-		b.append(tmp[1])
+	a, b = zip(*[(i, j - 1) for i, j in [[int(i) for i in input().split()] for _ in range(n)]])
 	m = int(input())
 	s = [input() for _ in range(m)]
 
-	check = defaultdict(lambda: defaultdict(set))
+	available = defaultdict(lambda: defaultdict(set))
 	for i in s:
 		for j in range(len(i)):
-			check[len(i)][j].add(i[j])
+			available[len(i)][j].add(i[j])
 
-	for i in range(m):
-		if len(s[i]) != n:
+	for i in s:
+		if len(i) != n:
 			print("No")
 			continue
 
 		for j in range(n):
-			if s[i][j] not in check[a[j]][b[j] - 1]:
+			if i[j] not in available[a[j]][b[j]]:
 				print("No")
 				break
 		else:

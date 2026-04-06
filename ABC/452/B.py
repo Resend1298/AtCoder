@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	h, w = [int(i) for i in input().split()]
 

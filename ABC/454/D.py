@@ -1,36 +1,17 @@
-# TODO: review
+def remove_parentheses(s):
+	result = []
+	for i in s:
+		result.append(i)
+		while len(result) >= 4 and result[-4:] == ['(', 'x', 'x', ')']:
+			result[-4:] = ['x', 'x']
+	return ''.join(result)
+
 
 def solve():
 	a = input()
 	b = input()
 
-	if a == b:
-		print("Yes")
-		return
-
-	a_processed = []
-	for i in a:
-		a_processed.append(i)
-		while len(a_processed) >= 4 and a_processed[-4:] == ['(', 'x', 'x', ')']:
-			a_processed.pop()
-			a_processed.pop()
-			a_processed.pop()
-			a_processed.pop()
-			a_processed.append('x')
-			a_processed.append('x')
-
-	b_processed = []
-	for i in b:
-		b_processed.append(i)
-		while len(b_processed) >= 4 and b_processed[-4:] == ['(', 'x', 'x', ')']:
-			b_processed.pop()
-			b_processed.pop()
-			b_processed.pop()
-			b_processed.pop()
-			b_processed.append('x')
-			b_processed.append('x')
-
-	if a_processed == b_processed:
+	if remove_parentheses(a) == remove_parentheses(b):
 		print("Yes")
 	else:
 		print("No")

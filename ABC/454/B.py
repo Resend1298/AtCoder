@@ -1,23 +1,18 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
 	f = [int(i) - 1 for i in input().split()]
 
-	tmp = set()
-	for i in f:
-		tmp.add(i)
-	if len(tmp) == n:
+	f_set = set(f)
+
+	if len(f_set) == n:
 		print("Yes")
 	else:
 		print("No")
 
-	for i in range(m):
-		if i not in tmp:
-			print("No")
-			break
-	else:
+	if all(i in f_set for i in range(m)):
 		print("Yes")
+	else:
+		print("No")
 
 
 if __name__ == "__main__":

@@ -1,23 +1,20 @@
-# TODO: review
-
-from collections import defaultdict
+from collections import Counter
 
 
 def main():
 	n, k = [int(i) for i in input().split()]
 	a = [int(i) for i in input().split()]
 
-	sum_dict = defaultdict(int)
-	sum_all = 0
+	sum_by_value = Counter()
 	for i in a:
-		sum_dict[i] += i
-		sum_all += i
-	sum_list = sorted(sum_dict.values(), reverse=True)
+		sum_by_value[i] += i
+	sum_by_value = sorted(sum_by_value.values(), reverse=True)
 
-	for i in range(min(k, len(sum_list))):
-		sum_all -= sum_list[i]
+	if k >= len(sum_by_value):
+		print(0)
+		exit()
 
-	print(sum_all)
+	print(sum(sum_by_value[k:]))
 
 
 if __name__ == "__main__":

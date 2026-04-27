@@ -1,5 +1,3 @@
-# TODO: review
-
 from collections import Counter
 
 
@@ -7,54 +5,38 @@ def main():
 	n = int(input())
 	s = input()
 
-	ab_count = 0
-	current = 0
-	pre = Counter({0: 1})
-	for i in s:
-		if i == 'A':
-			current += 1
-		elif i == 'B':
-			current -= 1
-		ab_count += pre[current]
-		pre[current] += 1
+	a_count = 0
+	b_count = 0
+	c_count = 0
+	pre_ab = Counter({0: 1})
+	pre_ac = Counter({0: 1})
+	pre_bc = Counter({0: 1})
+	pre_abc = Counter({(0, 0): 1})
+	result_ab = 0
+	result_ac = 0
+	result_bc = 0
+	result_abc = 0
 
-	bc_count = 0
-	current = 0
-	pre = Counter({0: 1})
 	for i in s:
-		if i == 'B':
-			current += 1
-		elif i == 'C':
-			current -= 1
-		bc_count += pre[current]
-		pre[current] += 1
+		match i:
+			case 'A':
+				a_count += 1
+			case 'B':
+				b_count += 1
+			case 'C':
+				c_count += 1
 
-	ac_count = 0
-	current = 0
-	pre = Counter({0: 1})
-	for i in s:
-		if i == 'A':
-			current += 1
-		elif i == 'C':
-			current -= 1
-		ac_count += pre[current]
-		pre[current] += 1
+		result_ab += pre_ab[a_count - b_count]
+		result_ac += pre_ac[a_count - c_count]
+		result_bc += pre_bc[b_count - c_count]
+		result_abc += pre_abc[(a_count - b_count, a_count - c_count)]
 
-	abc_count = 0
-	current = [0, 0]
-	pre = Counter({(0, 0): 1})
-	for i in s:
-		if i == 'A':
-			current[0] += 1
-		elif i == 'B':
-			current[0] -= 1
-			current[1] += 1
-		elif i == 'C':
-			current[1] -= 1
-		abc_count += pre[tuple(current)]
-		pre[tuple(current)] += 1
+		pre_ab[a_count - b_count] += 1
+		pre_ac[a_count - c_count] += 1
+		pre_bc[b_count - c_count] += 1
+		pre_abc[(a_count - b_count, a_count - c_count)] += 1
 
-	print(n * (n + 1) // 2 - ab_count - bc_count - ac_count + abc_count * 2)
+	print(n * (n + 1) // 2 - result_ab - result_ac - result_bc + 2 * result_abc)
 
 
 if __name__ == "__main__":

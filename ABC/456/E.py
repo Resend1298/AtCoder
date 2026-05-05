@@ -1,11 +1,9 @@
-# TODO: review
-
 from sys import setrecursionlimit
 
 
 def solve():
 	n, m = [int(i) for i in input().split()]
-	edges = [[] for _ in range(n)]
+	edges = [[i] for i in range(n)]
 	for _ in range(m):
 		u, v = [int(i) - 1 for i in input().split()]
 		edges[u].append(v)
@@ -13,41 +11,25 @@ def solve():
 	w = int(input())
 	s = [input() for _ in range(n)]
 
-	start = [i for i in range(n) if s[i][0] == 'o']
-	if not start:
-		print("No")
-		return
+	possible: list[list[bool | None]] = [[None] * w for _ in range(n)]
 
-	possible = [[0] * w for _ in range(n)]
+	def dfs(i, day):
+		possible[i][day] = True
 
-	# 0: Unknown, 1: possible, 2: impossible
-
-	def dfs(i, current_w):
-		possible[i][current_w] = 1
-
-		next_w = current_w + 1 if current_w != w - 1 else 0
-		if s[i][next_w] == 'o':
-			if possible[i][next_w] == 1:
+		for j in edges[i]:
+			if possible[j][(day + 1) % w]:
 				print("Yes")
 				return True
-			elif possible[i][next_w] == 0:
-				if dfs(i, next_w):
+			if possible[j][(day + 1) % w] is None and s[j][(day + 1) % w] == 'o':
+				if dfs(j, (day + 1) % w):
 					return True
-		for j in edges[i]:
-			if s[j][next_w] == 'o':
-				if possible[j][next_w] == 1:
-					print("Yes")
-					return True
-				elif possible[j][next_w] == 0:
-					if dfs(j, next_w):
-						return True
 
-		possible[i][current_w] = 2
+		possible[i][day] = False
 		return False
 
 	setrecursionlimit(10 ** 7)
-	for i in start:
-		if possible[i][0] != 2:
+	for i in range(n):
+		if s[i][0] == 'o':
 			if dfs(i, 0):
 				return
 	print("No")

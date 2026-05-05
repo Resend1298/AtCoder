@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	x = int(input())
 

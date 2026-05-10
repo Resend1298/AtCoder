@@ -1,7 +1,5 @@
-# TODO: review
-
 def main():
-	n = int(input())
+	_ = int(input())
 	a = [int(i) for i in input().split()]
 	x = int(input()) - 1
 

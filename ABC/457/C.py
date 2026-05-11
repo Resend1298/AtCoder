@@ -1,17 +1,21 @@
-# TODO: review
-
 def main():
 	n, k = [int(i) for i in input().split()]
-	a = [[int(i) for i in input().split()] for _ in range(n)]
+	l = []
+	a = []
+	for _ in range(n):
+		la = [int(i) for i in input().split()]
+		l.append(la[0])
+		a.append(la[1:])
 	c = [int(i) for i in input().split()]
 
 	for i in range(n):
-		if k > a[i][0] * c[i]:
-			k -= a[i][0] * c[i]
-		else:
-			k = (k - 1) % a[i][0]
-			print(a[i][k + 1])
-			exit()
+		if k > l[i] * c[i]:
+			k -= l[i] * c[i]
+			continue
+
+		k = (k - 1) % l[i]
+		print(a[i][k])
+		break
 
 
 if __name__ == "__main__":

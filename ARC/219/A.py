@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedKeyList
 
 
@@ -8,34 +6,32 @@ def main():
 	s = [[int(i) for i in list(input())] for _ in range(n)]
 
 	q = SortedKeyList(key=lambda x: len(x[2]))
-	for i in range(m):
-		for j in [0, 1]:
-			tmp_set = set()
-			for k in range(n):
-				if s[k][i] == j:
-					tmp_set.add(k)
-			q.add((i, j, tmp_set))
+	for index in range(m):
+		set_0 = {i for i in range(n) if s[i][index] == 0}
+		set_1 = {i for i in range(n) if s[i][index] == 1}
+		q.add((index, 0, set_0))
+		q.add((index, 1, set_1))
 
+	satisfied = set()
 	used = [False] * m
 	result = [0] * m
-	remaining = {i for i in range(n)}
 	while q:
-		current_index, current_char, current_set = q.pop()
-		if used[current_index]:
-			continue
-		used[current_index] = True
-		result[current_index] = current_char
-		remaining -= current_set
-		new_q = SortedKeyList(key=lambda x: len(x[2]))
-		for i in q:
-			new_q.add((i[0], i[1], i[2] - current_set))
-		q = new_q
+		index, value, changes = q.pop()
 
-	if remaining:
-		print("No")
-	else:
+		if used[index]:
+			continue
+
+		satisfied |= changes
+		used[index] = True
+		result[index] = value
+
+		q = SortedKeyList([(i, j, k - changes) for i, j, k in q], key=lambda x: len(x[2]))
+
+	if satisfied == {i for i in range(n)}:
 		print("Yes")
 		print(''.join(str(i) for i in result))
+	else:
+		print("No")
 
 
 if __name__ == "__main__":

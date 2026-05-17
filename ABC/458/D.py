@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -7,8 +5,7 @@ def main():
 	x = int(input())
 	q = int(input())
 
-	sl = SortedList()
-	sl.add(x)
+	sl = SortedList([x])
 
 	for _ in range(q):
 		a, b = [int(i) for i in input().split()]

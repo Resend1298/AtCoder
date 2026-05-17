@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	s = input()
 	n = int(input())

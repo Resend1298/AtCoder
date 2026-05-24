@@ -1,11 +1,8 @@
-# TODO: review
-
 def main():
 	x = int(input()) - 1
+	s = "HelloWorld"
 
-	string = "HelloWorld"
-
-	print(string[:x] + string[x + 1:])
+	print(s[:x] + s[x + 1:])
 
 
 if __name__ == "__main__":

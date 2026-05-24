@@ -1,27 +1,26 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
 def main():
 	n, q = [int(i) for i in input().split()]
 
-	current = [0] * n
-	remove_count = 0
-	sl = SortedList([0] * n)
+	count = [0] * n
+	count_sl = SortedList([0] * n)
+	removed_count = 0
 
 	for _ in range(q):
 		match [int(i) for i in input().split()]:
 			case 1, x:
 				x -= 1
-				sl.remove(current[x])
-				current[x] += 1
-				sl.add(current[x])
 
-				if sl[0] >= remove_count + 1:
-					remove_count += 1
+				count_sl.remove(count[x])
+				count[x] += 1
+				count_sl.add(count[x])
+
+				if count_sl[0] - removed_count >= 1:
+					removed_count += 1
 			case 2, y:
-				index = sl.bisect_left(y + remove_count)
+				index = count_sl.bisect_left(y + removed_count)
 				print(n - index)
 
 

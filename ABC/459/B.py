@@ -1,30 +1,28 @@
-# TODO: review
-
 def main():
-	n = int(input())
+	_ = int(input())
 	s = input().split()
 
-	c = [0] * n
-	for i in range(n):
-		match s[i][0]:
+	result = []
+	for i in s:
+		match i[0]:
 			case 'a' | 'b' | 'c':
-				c[i] = 2
+				result.append('2')
 			case 'd' | 'e' | 'f':
-				c[i] = 3
+				result.append('3')
 			case 'g' | 'h' | 'i':
-				c[i] = 4
+				result.append('4')
 			case 'j' | 'k' | 'l':
-				c[i] = 5
+				result.append('5')
 			case 'm' | 'n' | 'o':
-				c[i] = 6
+				result.append('6')
 			case 'p' | 'q' | 'r' | 's':
-				c[i] = 7
+				result.append('7')
 			case 't' | 'u' | 'v':
-				c[i] = 8
+				result.append('8')
 			case 'w' | 'x' | 'y' | 'z':
-				c[i] = 9
+				result.append('9')
 
-	print(''.join(str(i) for i in c))
+	print(''.join(result))
 
 
 if __name__ == "__main__":

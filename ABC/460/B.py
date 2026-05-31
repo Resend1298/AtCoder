@@ -1,3 +1,5 @@
+# TODO: review
+
 def solve():
 	x1, y1, r1, x2, y2, r2 = [int(i) for i in input().split()]
 

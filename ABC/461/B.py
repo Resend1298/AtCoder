@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	a = [int(i) - 1 for i in input().split()]

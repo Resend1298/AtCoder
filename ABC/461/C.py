@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n, k, m = [int(i) for i in input().split()]
 	gems = [[int(i) for i in input().split()] for _ in range(n)]

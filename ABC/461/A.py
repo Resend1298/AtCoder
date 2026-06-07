@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	a, d = [int(i) for i in input().split()]
 

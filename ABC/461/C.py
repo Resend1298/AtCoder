@@ -1,26 +1,22 @@
-# TODO: review
-
 def main():
 	n, k, m = [int(i) for i in input().split()]
-	gems = [[int(i) for i in input().split()] for _ in range(n)]
+	cv = [[int(i) for i in input().split()] for _ in range(n)]
 
-	gems = {(i, gems[i][0], gems[i][1]) for i in range(n)}
-
-	colors = {}
-	for i, c, v in gems:
-		if c not in colors or v > colors[c][2]:
-			colors[c] = (i, c, v)
-
-	colors = sorted(colors.values(), key=lambda x: x[2], reverse=True)
+	gems = {(i, cv[i][0], cv[i][1]) for i in range(n)}
 	result = 0
-	for i in range(m):
-		result += colors[i][2]
-		gems.remove(colors[i])
 
+	most_valuable_by_color = {}
+	for i, c, v in gems:
+		if c not in most_valuable_by_color or v > most_valuable_by_color[c][2]:
+			most_valuable_by_color[c] = (i, c, v)
+	most_valuable_by_color = sorted(most_valuable_by_color.values(), key=lambda x: x[2], reverse=True)
+	for i in range(m):
+		result += most_valuable_by_color[i][2]
+		gems.remove(most_valuable_by_color[i])
 	k -= m
-	gems = sorted(gems, key=lambda x: x[2], reverse=True)
-	for i in range(k):
-		result += gems[i][2]
+
+	gems = sorted([i[2] for i in gems], reverse=True)
+	result += sum(gems[:k])
 
 	print(result)
 

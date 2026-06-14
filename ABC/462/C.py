@@ -1,17 +1,15 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	xy = [[int(i) for i in input().split()] for _ in range(n)]
 
 	xy.sort(key=lambda x: x[0])
+	pre_min_y = float("inf")
 	result = 0
-	pre_min = float("inf")
 
-	for x, y in xy:
-		if y < pre_min:
+	for _, y in xy:
+		if y < pre_min_y:
+			pre_min_y = y
 			result += 1
-			pre_min = y
 
 	print(result)
 

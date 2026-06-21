@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n, x = input().split()
 	n = int(n)

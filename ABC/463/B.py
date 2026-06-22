@@ -1,12 +1,12 @@
-# TODO: review
-
 def main():
 	n, x = input().split()
 	n = int(n)
 	s = [input() for _ in range(n)]
 
+	x = ord(x) - ord('A')
+
 	for i in s:
-		if i[ord(x) - ord('A')] == 'o':
+		if i[x] == 'o':
 			print("Yes")
 			break
 	else:

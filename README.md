@@ -4,6 +4,7 @@
 ![GitHub License](https://img.shields.io/github/license/Resend1298/AtCoder)
 
 ![Accepted Count](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fkenkoooo.com%2Fatcoder%2Fatcoder-api%2Fv3%2Fuser%2Fac_rank%3Fuser%3DThrottle7915&query=%24.count&label=Accepted%20Count&color=5cb85c)
+[![wakatime](https://wakatime.com/badge/github/Resend1298/AtCoder.svg)](https://wakatime.com/badge/github/Resend1298/AtCoder)
 
 This repository contains my personal solutions to problems from [AtCoder](https://atcoder.jp/).
 

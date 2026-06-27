@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	h, w, q = [int(i) for i in input().split()]
 	rcx = [input().split() for _ in range(q)]
@@ -8,15 +6,13 @@ def main():
 
 	for r, c, x in rcx[::-1]:
 		r, c = int(r) - 1, int(c) - 1
+
 		if grid[r][c] != ' ':
 			continue
-		for i in range(r - 1, -1, -1):
+
+		for i in range(r, -1, -1):
 			if grid[i][c] != ' ':
-				up = i + 1
 				break
-		else:
-			up = 0
-		for i in range(r, up - 1, -1):
 			for j in range(c, -1, -1):
 				if grid[i][j] != ' ':
 					break

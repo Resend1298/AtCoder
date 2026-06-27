@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	h, w, q = [int(i) for i in input().split()]
 	rcx = [input().split() for _ in range(q)]

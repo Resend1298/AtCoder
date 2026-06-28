@@ -8,14 +8,18 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "sortedcontainers" },
+]
+
+[package.dev-dependencies]
+dev = [
     { name = "tqdm" },
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "sortedcontainers", specifier = ">=2.4.0" },
-    { name = "tqdm", specifier = ">=4.67.3" },
-]
+requires-dist = [{ name = "sortedcontainers", specifier = ">=2.4.0" }]
+
+[package.metadata.requires-dev]
+dev = [{ name = "tqdm", specifier = ">=4.67.3" }]
 
 [[package]]
 name = "colorama"

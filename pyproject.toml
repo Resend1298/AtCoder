@@ -4,5 +4,9 @@ version = "0.1.0"
 requires-python = "==3.13.*"
 dependencies = [
     "sortedcontainers>=2.4.0",
+]
+
+[dependency-groups]
+dev = [
     "tqdm>=4.67.3",
 ]

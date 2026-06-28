@@ -8,5 +8,5 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "tqdm>=4.67.3",
+    "tqdm>=4.68.3",
 ]

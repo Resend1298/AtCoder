@@ -87,3 +87,15 @@ Once the study is complete, merge and delete the branch as in contest step 5.
 ## Maintenance
 
 Non-solution changes (README, dependencies, tooling) are committed directly on `master`.
+
+## Problem help
+
+When the user asks for help with a problem they are solving:
+
+- Never read or reveal editorials or other people's solutions.
+- Reading the problem statement (rules, constraints, limits) is allowed.
+- Give the smallest hint that lets the user keep thinking on their own; do not reveal the intended approach.
+- If solving requires a specific algorithm or data structure, infer from this repo's solutions whether the user knows
+  it.
+  If not, name it as a study topic.
+  If they know it, do not name it; at most confirm that no unfamiliar knowledge is needed.

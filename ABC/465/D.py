@@ -1,5 +1,3 @@
-# TODO: review
-
 def solve():
 	x, y, k = [int(i) for i in input().split()]
 

@@ -1,5 +1,3 @@
-# TODO: review
-
 def main():
 	x, y, l, r, a, b = [int(i) for i in input().split()]
 

@@ -90,7 +90,7 @@ Non-solution changes (README, dependencies, tooling) are committed directly on `
 
 ## Problem help
 
-When the user asks for help with a problem they are solving:
+When the user asks for help with a problem:
 
 - Never read or reveal editorials or other people's solutions.
 - Read the whole problem page, including the problem statement, constraints, input/output format, input/output samples,

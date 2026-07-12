@@ -1,20 +1,16 @@
-# TODO: review
-
 def main():
 	n = int(input())
 
 	result = 0
-	r = 2
+	r = 1
 
-	for l in range(1, n):
-		if not r > l:
+	for l in range(n - 1):
+		if not l < r:
 			r = l + 1
-		while r <= n:
-			print(f"? {l} {r}")
-			if input() == "Yes":
-				r += 1
-			else:
-				break
+
+		while r < n and input(f"? {l + 1} {r + 1}\n") == "Yes":
+			r += 1
+
 		result += r - l - 1
 
 	print(f"! {result}")

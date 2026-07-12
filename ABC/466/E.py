@@ -1,60 +1,55 @@
-# TODO: review
-
 def main():
 	n, k = [int(i) for i in input().split()]
-	ab = [[int(i) for i in input().split()] for _ in range(n)]
-
-	if n == 1:
-		print(max(ab[0]))
-		exit()
-	if n == 2:
-		if k == 1:
-			print(max(
-				ab[0][0] + ab[1][0],
-				ab[0][1] + ab[1][0],
-				ab[0][0] + ab[1][1]
-			))
-		else:
-			print(max(
-				ab[0][0] + ab[1][0],
-				ab[0][1] + ab[1][0],
-				ab[0][0] + ab[1][1],
-				ab[0][1] + ab[1][1]
-			))
-		exit()
+	a, b = [list(i) for i in zip(*[[int(i) for i in input().split()] for _ in range(n)])]
 
 	for _ in range(k):
-		dp = [[0] * 3 for _ in range(n)]
-		dp[0][2] = ab[0][1] - ab[0][0]
-		dp[1][1] = dp[0][2]
-		dp[1][2] = max(0, dp[0][2]) + ab[1][1] - ab[1][0]
+		dp: list[list[int | float]] = [[0] * 2 for _ in range(n)]
+		"""
+		For any card, we can either choose to flip it or not.
+		Note that there's actually 2 states for not flipping the card:
+			- Not flipping it, and haven't flipped any card previously (still possible to flip cards later)
+			- Not flipping it, but have flipped cards previously (not possible to flip cards later)
+		Luckily, for the first state, the gain is always 0, so we don't need to calculate or store it.
 
-		for i in range(2, n):
-			dp[i][1] = max(dp[i - 1][1], dp[i - 1][2])
-			dp[i][2] = max(0, dp[i - 1][2]) + ab[i][1] - ab[i][0]
+		Therefore, the dp state is defined as follows:
+			- dp[i][0]: The maximum gain we can get by considering cards up to i, not flipping the i-th card, and have flipped cards previously.
+			- dp[i][1]: The maximum gain we can get by considering cards up to i, flipping the i-th card.
 
-		if max(dp[-1]) == 0:
+		We can then derive the following recurrence relations:
+			- dp[i][0] = max(dp[i-1][0],  # flip range was already over before card i-1
+			                 dp[i-1][1])  # flip cards [..., i-1]
+
+			- dp[i][1] = max(0,           # flip range starts at card i
+			                 dp[i-1][1]   # flip range continues from card i-1
+			                 ) + b[i] - a[i]  # gain from flipping card i
+
+		Finally there's a special case:
+			max(0, dp[-1][0], dp[-1][1]) == 0 means that we should not flip any card, and we can stop here.
+		"""
+
+		dp[0][0] = float("-inf")  # not legal
+		dp[0][1] = b[0] - a[0]
+		for i in range(1, n):
+			dp[i][0] = max(dp[i - 1][0], dp[i - 1][1])
+			dp[i][1] = max(0, dp[i - 1][1]) + b[i] - a[i]
+
+		if max(0, dp[-1][0], dp[-1][1]) == 0:
 			break
 
-		if dp[-1][2] >= dp[-1][1]:
-			ab[-1][0], ab[-1][1] = ab[-1][1], ab[-1][0]
-			for i in range(n - 2, -1, -1):
-				if dp[i][2] > 0:
-					ab[i][0], ab[i][1] = ab[i][1], ab[i][0]
-				else:
-					break
-		else:
-			for i in range(n - 2, -1, -1):
-				if dp[i][1] >= dp[i][2]:
-					continue
-				for j in range(i, -1, -1):
-					if dp[j][2] > 0:
-						ab[j][0], ab[j][1] = ab[j][1], ab[j][0]
-					else:
-						break
+		# flip cards based on the dp table
+		l, r = -1, -1
+		for i in range(n - 1, -1, -1):
+			if dp[i][1] > dp[i][0] and dp[i][1] > 0:
+				r = i
 				break
+		for i in range(r, -1, -1):
+			if i - 1 == -1 or dp[i - 1][1] <= 0:
+				l = i
+				break
+		for i in range(l, r + 1):
+			a[i], b[i] = b[i], a[i]
 
-	print(sum(i[0] for i in ab))
+	print(sum(a))
 
 
 if __name__ == "__main__":

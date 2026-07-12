@@ -1,7 +1,5 @@
-# TODO: review
-
 def main():
-	n = int(input())
+	_ = int(input())
 	x = [int(i) for i in input().split()]
 
 	if all(i < 0 for i in x):

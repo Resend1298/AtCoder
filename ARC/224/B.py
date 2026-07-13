@@ -1,42 +1,41 @@
-# TODO: review
-
-from math import sqrt
+from math import isqrt
 
 
 def solve():
 	n = int(input())
 
-	square_edge_len = int(sqrt(n))
-	while square_edge_len ** 2 > n:
-		square_edge_len -= 1
+	# Build a near-square shape: the largest possible square,
+	# then one extra column along its side, then one extra row.
+	# Within a strip, every tile after the first touches 2 existing tiles, so it adds 2 pairs;
+	# the first tile of a strip touches only 1.
 
-	result = (square_edge_len - 1) * square_edge_len * 2
-	remaining = n - square_edge_len * square_edge_len
+	# in the largest square, side s = isqrt(n):
+	# s rows with s - 1 horizontal pairs each, plus the same vertically -> s * (s - 1) * 2
+	max_square_side = isqrt(n)
+	result = max_square_side * (max_square_side - 1) * 2
+	n -= max_square_side ** 2
 
-	if remaining == 0:
-		print(result)
-		return
+	# first tile of the extra column: touches only the square -> +1
+	if n > 0:
+		result += 1
+		n -= 1
 
-	result += 1
-	remaining -= 1
-	if remaining == 0:
-		print(result)
-		return
+	# rest of the extra column, each tile touching the square and the previous tile -> +2,
+	# until it completes a max_square_side * (max_square_side + 1) rectangle
+	if n > 0:
+		result += 2 * min(n, max_square_side - 1)
+		n -= min(n, max_square_side - 1)
 
-	next_part = min(remaining, square_edge_len - 1)
-	result += 2 * next_part
-	remaining -= next_part
-	if remaining == 0:
-		print(result)
-		return
+	# first tile of the extra row, along the rectangle's longer side: touches only the rectangle -> +1
+	if n > 0:
+		result += 1
+		n -= 1
 
-	result += 1
-	remaining -= 1
-	if remaining == 0:
-		print(result)
-		return
+	# rest of the extra row, each tile touching the rectangle and the previous tile -> +2;
+	# n < (max_square_side + 1) ** 2 leaves at most max_square_side - 1 tiles here, so the row never outgrows its side
+	if n > 0:
+		result += 2 * n
 
-	result += 2 * remaining
 	print(result)
 
 

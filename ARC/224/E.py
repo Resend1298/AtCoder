@@ -1,11 +1,10 @@
-# TODO: review
-
 def solve():
 	s = input()
 
 	stack = []
 	for i in s[::-1]:
 		stack.append(i)
+
 		if i == 'A':
 			if len(stack) >= 3 and stack[-3:] == ['C', 'B', 'A']:
 				stack.pop()

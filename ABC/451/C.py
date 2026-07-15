@@ -1,10 +1,9 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
 def main():
 	q = int(input())
+
 	trees = SortedList()
 
 	for _ in range(q):
@@ -13,9 +12,8 @@ def main():
 				trees.add(h)
 				print(len(trees))
 			case 2, h:
-				remove_end_index = trees.bisect_right(h) - 1
-				if remove_end_index != -1:
-					del trees[:remove_end_index + 1]
+				while trees and trees[0] <= h:
+					trees.pop(0)
 				print(len(trees))
 
 

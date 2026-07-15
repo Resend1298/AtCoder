@@ -1,16 +1,14 @@
-# TODO: review
-
 def main():
 	n, m = [int(i) for i in input().split()]
-	current = [0] * m
-	next_count = [0] * m
-	for _ in range(n):
-		a, b = [int(i) - 1 for i in input().split()]
-		current[a] += 1
-		next_count[b] += 1
+	ab = [[int(i) - 1 for i in input().split()] for _ in range(n)]
 
-	for i in range(m):
-		print(next_count[i] - current[i])
+	result = [0] * m
+	for a, b in ab:
+		result[a] -= 1
+		result[b] += 1
+
+	for i in result:
+		print(i)
 
 
 if __name__ == "__main__":

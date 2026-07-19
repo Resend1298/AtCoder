@@ -1,9 +1,7 @@
-# TODO: review
-
 def main():
 	h, w = [int(i) for i in input().split()]
 
-	if w * 100 * 100 >= 25 * h * h:
+	if 10000 * w >= 25 * h ** 2:
 		print("Yes")
 	else:
 		print("No")

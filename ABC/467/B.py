@@ -1,12 +1,10 @@
-# TODO: review
-
 def main():
 	n = int(input())
+	abs_ = [input().split() for _ in range(n)]
 
 	result = 0
 
-	for _ in range(n):
-		a, b, s = input().split()
+	for a, b, s in abs_:
 		if s == "keep":
 			result += int(b) - int(a)
 

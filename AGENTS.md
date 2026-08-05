@@ -96,8 +96,8 @@ When the user asks for help with a problem:
 - Read the whole problem page, including the problem statement, constraints, input/output format, input/output samples,
   and time/memory limits.
 - Give the smallest hint that lets the user keep thinking on their own; do not reveal the intended approach.
-- If solving requires a specific algorithm or data structure, infer from this repo's solutions whether the user knows
-  it.
+- If solving requires a specific algorithm or data structure, infer whether the user knows it from both this repo's
+  solutions and the user's notes in `~/Seafile/sync/logseq_data/pages/`.
   If not, name it as a study topic.
   If they know it, do not name it; at most confirm that no unfamiliar knowledge is needed.
 

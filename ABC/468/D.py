@@ -1,32 +1,36 @@
-# TODO: review
+# CPython TLE, PyPy AC
 
 def main():
 	s = input()
 
-	len_s = len(s)
-	result = len_s
+	result = 0
 
-	for center in range(len_s):
-		max_len = min(center, len_s - center - 1)
-		chance = True
-		for i in range(1, max_len + 1):
-			if s[center - i] != s[center + i]:
-				if chance:
-					chance = False
-				else:
-					break
+	# substrings which length is odd
+	for center in range(len(s)):
+		result += 1
+		diff_count = 0
+
+		# noinspection DuplicatedCode
+		for l, r in zip(range(center - 1, -1, -1), range(center + 1, len(s))):
+			if s[l] != s[r]:
+				diff_count += 1
+			if diff_count > 1:
+				break
 			result += 1
 
-		if center != len_s - 1:
-			max_len = min(center + 1, len_s - center - 1)
-			chance = True
-			for i in range(1, max_len + 1):
-				if s[center - i + 1] != s[center + i]:
-					if chance:
-						chance = False
-					else:
-						break
-				result += 1
+	# substrings which length is even
+	for l in range(len(s) - 1):
+		r = l + 1
+		result += 1
+		diff_count = 0 if s[l] == s[r] else 1
+
+		# noinspection DuplicatedCode,assignment-to-loop-or-with-parameter
+		for l, r in zip(range(l - 1, -1, -1), range(r + 1, len(s))):
+			if s[l] != s[r]:
+				diff_count += 1
+			if diff_count > 1:
+				break
+			result += 1
 
 	print(result)
 

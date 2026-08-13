@@ -1,25 +1,31 @@
-# TODO: review
+from math import comb
+
 
 def main():
 	n = int(input())
-	p = [int(i) for i in input().split()]
+	p = [int(i) - 1 for i in input().split()]
+
+	next_ = [-1] * n
+	for i in range(n):
+		next_[i] = p[i]
 
 	result = 0
 	visited = [False] * n
 
 	for i in range(n):
-		if i + 1 == p[i] or visited[i]:
+		if visited[i]:
 			continue
 
-		cycle_length = 1
 		current = i
-		while p[current] != i + 1:
-			visited[current] = True
-			current = p[current] - 1
-			cycle_length += 1
-		visited[current] = True
+		visited[i] = True
+		loop_len = 1
 
-		result += cycle_length * (cycle_length - 1) // 2
+		while next_[current] != i:
+			current = next_[current]
+			visited[current] = True
+			loop_len += 1
+
+		result += comb(loop_len, 2)
 
 	print(result)
 

@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -13,10 +11,10 @@ def main():
 			case 1, t, w:
 				batteries.add(w - t)
 			case 2, t:
-				if batteries:
-					print(min(v, batteries.pop() + t))
-				else:
+				if not batteries:
 					print(-1)
+					continue
+				print(min(v, batteries.pop() + t))
 
 
 if __name__ == "__main__":

@@ -1,5 +1,3 @@
-# TODO: review
-
 from collections import deque
 
 
@@ -8,17 +6,18 @@ def main():
 	a = [int(i) for i in input().split()]
 
 	q = deque()
-	current_sum = 0
+	q_sum = 0
 
-	for i in range(n):
-		start = max(i + 1 - m + 1, 1) - 1
+	for i in range(1, n + 1):
+		start = max(i - m + 1, 1) - 1
+
 		while q and q[0][0] < start:
-			current_sum -= q.popleft()[1]
+			q_sum -= q.popleft()[1]
 
-		if current_sum + a[i] <= k:
+		if a[i - 1] + q_sum <= k:
 			print("Yes")
-			current_sum += a[i]
-			q.append((i, a[i]))
+			q.append((i - 1, a[i - 1]))
+			q_sum += a[i - 1]
 		else:
 			print("No")
 

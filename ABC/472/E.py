@@ -1,9 +1,8 @@
-# TODO: review
-
 from sys import setrecursionlimit
 
 
 def solve():
+	# noinspection DuplicatedCode
 	n, m = [int(i) for i in input().split()]
 	edges = [[] for _ in range(n)]
 	for _ in range(m):
@@ -11,48 +10,34 @@ def solve():
 		edges[a].append(b)
 		edges[b].append(a)
 
-	visited = [-1] * n
-	result = []
-	found = False
-	target = -1
-	target_found = False
+	visited = [float("inf")] * n
+	path = []
 
-	def dfs(node, step):
-		nonlocal found
-		nonlocal target
-		nonlocal target_found
-
-		visited[node] = step
+	def dfs(node, cost: int):
+		visited[node] = cost
+		path.append(node + 1)
 
 		for i in edges[node]:
-			if visited[i] == -1:
-				dfs(i, step + 1)
+			if visited[i] <= cost - 2 and (cost - visited[i]) % 2 == 0:
+				start_index = path.index(i + 1)
+				print(len(path) - start_index)
+				print(*path[start_index:])
+				return True
 
-				if found:
-					if not target_found:
-						result.append(node + 1)
-						if node + 1 == target:
-							target_found = True
-					return
-			elif step - visited[i] != 1 and (step + 1 - visited[i]) % 2 == 1:
-				target = i + 1
-				result.append(node + 1)
-				found = True
-				return
+			if visited[i] == float("inf"):
+				if dfs(i, cost + 1):
+					return True
+
+		path.pop()
+		return False
 
 	setrecursionlimit(10 ** 7)
-	dfs(0, 1)
-
-	if not found:
+	if not dfs(0, 0):
 		print(-1)
-	else:
-		print(len(result))
-		print(*result)
 
 
 def main():
 	t = int(input())
-
 	for _ in range(t):
 		solve()
 

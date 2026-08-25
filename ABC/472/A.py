@@ -1,14 +1,7 @@
-# TODO: review
-
 def main():
 	s = input()
 
-	result = []
-	for i in s:
-		if i != 'A':
-			result.append('.')
-		else:
-			result.append(i)
+	result = [i if i == 'A' else '.' for i in s]
 
 	print(''.join(result))
 

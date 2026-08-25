@@ -1,12 +1,10 @@
-# TODO: review
-
 def main():
 	n = int(input())
 	l = [int(i) for i in input().split()]
 
 	result = float("inf")
-	for i in range(1, n):
-		result = min(result, abs(sum(l[:i]) - sum(l[i:])))
+	for i in range(n - 1):
+		result = min(result, abs(sum(l[:i + 1]) - sum(l[i + 1:])))
 
 	print(result)
 

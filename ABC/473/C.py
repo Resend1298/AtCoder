@@ -1,5 +1,3 @@
-# TODO: review
-
 from bisect import bisect_left
 
 
@@ -12,10 +10,8 @@ def main():
 		classes[i] += 1
 	classes.sort()
 
-	max_people = classes[-1]
-	target_index = bisect_left(classes, max_people - 1)
-
-	print(k - target_index)
+	min_possible_index = bisect_left(classes, classes[-1] - 1)
+	print(k - min_possible_index)
 
 
 if __name__ == "__main__":

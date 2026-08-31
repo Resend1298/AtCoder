@@ -1,23 +1,17 @@
-# TODO: review
-
 from collections import Counter
 
 
 def main():
-	n = int(input())
+	_ = int(input())
 	a = [int(i) for i in input().split()]
 
 	a_counter = Counter(a)
-	a_sum = sum(a)
+	result = 0
 
 	for k, v in a_counter.items():
-		if v >= 2:
-			if v % 2 == 0:
-				a_sum -= k * v
-			else:
-				a_sum -= k * (v - 1)
+		result += k * (v % 2)
 
-	print(a_sum)
+	print(result)
 
 
 if __name__ == "__main__":

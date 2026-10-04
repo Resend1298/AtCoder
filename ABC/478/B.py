@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	n, v = [int(i) for i in input().split()]
 	w = [int(i) for i in input().split()]

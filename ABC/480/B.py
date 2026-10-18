@@ -1,4 +1,6 @@
-# TODO: review
+from collections import defaultdict
+from string import ascii_lowercase
+
 
 def main():
 	n, m = [int(i) for i in input().split()]
@@ -6,20 +8,19 @@ def main():
 	t = [input() for _ in range(m)]
 
 	result = [0] * n
-	name_to_id = {name: i for i, name in enumerate(s)}
+	name_to_index = {name: index for index, name in enumerate(s)}
+	name_to_index_fuzzy = defaultdict(set)
 
-	for i in t:
-		if i in name_to_id:
-			result[name_to_id[i]] += 1
-			continue
+	for index, name in enumerate(s):
+		for change_index in range(len(name)):
+			for char in ascii_lowercase:
+				name_to_index_fuzzy[name[:change_index] + char + name[change_index + 1:]].add(index)
 
-		possible = []
-		for name, j in name_to_id.items():
-			if len(i) == len(name) and sum(1 for a, b in zip(i, name) if a != b) == 1:
-				possible.append(j)
-
-		if len(possible) == 1:
-			result[possible[0]] += 1
+	for name in t:
+		if name in name_to_index:
+			result[name_to_index[name]] += 1
+		elif len(name_to_index_fuzzy[name]) == 1:
+			result[next(iter(name_to_index_fuzzy[name]))] += 1
 
 	for i in result:
 		print(i)

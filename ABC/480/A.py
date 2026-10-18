@@ -1,3 +1,5 @@
+# TODO: review
+
 def main():
 	s = [input() for _ in range(2)]
 

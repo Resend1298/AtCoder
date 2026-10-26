@@ -1,5 +1,3 @@
-# TODO: review
-
 from sortedcontainers import SortedList
 
 
@@ -14,7 +12,7 @@ def main():
 
 	for i in edges:
 		if i:
-			i.sort(key=lambda x: x[0])
+			i.sort()
 			i[0][1] = 0
 
 	sl = SortedList()
@@ -23,6 +21,7 @@ def main():
 	sl.add((0, s))
 	cost[s] = 0
 
+	# noinspection DuplicatedCode
 	while sl:
 		current_cost, current_node = sl.pop(0)
 
